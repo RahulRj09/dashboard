@@ -1,0 +1,11 @@
+.header {
+    background-color: #000000
+}
+
+.logo {
+    width: 200px;
+    padding: 8px;
+    height: auto;
+    background-size: 100% auto !important;
+}
+
