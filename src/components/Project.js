@@ -51,7 +51,7 @@ function Project(props) {
                                 data.map((project, index) => <div className="col-md-4" key={index} style={{ marginBottom: "3%" }} >
                                     <Card className={classes.root}>
                                         <CardActionArea>
-                                            <CardContent>
+                                            <CardContent >
                                                 <Typography gutterBottom variant="h5" component="h2">
                                                     {project}
                                                 </Typography>

@@ -17,6 +17,7 @@ import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import LockIcon from '@material-ui/icons/Lock';
 import HomeIcon from '@material-ui/icons/Home';
 import headerStyle from '../style/headerStyle'
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
 const drawerWidth = 220;
 
@@ -120,6 +121,7 @@ class Header extends Component {
                                 >
                                     <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                                     <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                                    <MenuItem > <Link to="/logout">Logout</Link></MenuItem>
                                 </Menu>
                             </div>
                         </Toolbar>
@@ -157,6 +159,13 @@ class Header extends Component {
                                     }
                                 }}> Project</NavLink></ListItemText>
                             </ListItem>
+                            <ListItem button key="UserManagement">
+                                <ListItemIcon>
+                                    <NavLink to="/user_management"><GroupAddIcon /></NavLink>
+                                </ListItemIcon>
+                                <ListItemText><NavLink to="/user_management">User Management</NavLink></ListItemText>
+                            </ListItem>
+
                         </List>
                         <Divider />
                         <List>

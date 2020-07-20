@@ -7,6 +7,7 @@ import Home from './components/Home';
 import Logout from './components/Logout';
 import Project from './components/Project'
 import SingleProject from './components/SingleProject'
+import UserManagement from './components/UserManagement';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/projects" component={Project} />
           <Route exact path="/singleproject" component={SingleProject} />
+          <Route exact path="/user_management" component={UserManagement} />
         </Switch>
       </Router>
     </Provider>

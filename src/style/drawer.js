@@ -23,7 +23,7 @@ function drawer(theme) {
                 easing: theme.transitions.easing.easeOut,
                 duration: theme.transitions.duration.enteringScreen
             }),
-            marginLeft: 0
+            marginLeft: '5%'
         }
     }
     return drawerCss
