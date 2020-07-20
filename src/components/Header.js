@@ -1,112 +1,26 @@
 import React, { Component } from 'react'
 import headerCss from '../style/header.module.css'
 import logo from '../assets/mobillor.png'
-import { connect } from 'react-redux'
-import { NavLink, Route, Redirect, useHistory, Link } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
+import {
+    Drawer, AppBar, Toolbar,
+    List, CssBaseline, Typography,
+    IconButton, Divider, ListItem, ListItemIcon,
+    ListItemText, MenuItem, Menu
+} from "@material-ui/core"
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import LockIcon from '@material-ui/icons/Lock';
 import HomeIcon from '@material-ui/icons/Home';
+import headerStyle from '../style/headerStyle'
 
 const drawerWidth = 220;
 
-const styles = theme => ({
-    root: {
-        display: "flex"
-    },
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1,
-        backgroundColor: '#000000'
-    },
-    appBarShift: {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(["width", "margin"], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen
-        })
-
-    },
-    menuButton: {
-        marginLeft: 12,
-        marginRight: 36
-    },
-    menuButtonIconClosed: {
-        transition: theme.transitions.create(["transform"], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen
-        }),
-        transform: "rotate(0deg)"
-    },
-    menuButtonIconOpen: {
-        transition: theme.transitions.create(["transform"], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen
-        }),
-        transform: "rotate(180deg)"
-    },
-    hide: {
-        display: "none"
-    },
-    drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-        whiteSpace: "nowrap",
-    },
-    drawerOpen: {
-        width: drawerWidth,
-        transition: theme.transitions.create("width", {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen
-        })
-    },
-    drawerClose: {
-        transition: theme.transitions.create("width", {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen
-        }),
-        overflowX: "hidden",
-        width: theme.spacing.unit * 7 + 1,
-        [theme.breakpoints.up("sm")]: {
-            width: theme.spacing.unit * 9 + 1
-        }
-    },
-    toolbar: {
-        display: "flex",
-        alignItems: "center",
-        marginTop: theme.spacing.unit,
-        justifyContent: "flex-end",
-        padding: "0 8px",
-        ...theme.mixins.toolbar,
-
-    },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing.unit * 3
-    },
-    grow: {
-        flexGrow: 1
-    }
-});
+const styles = theme => (headerStyle(theme));
 
 class Header extends Component {
     state = {
@@ -127,8 +41,12 @@ class Header extends Component {
     handleClose = () => {
         this.setState({ anchorEl: null });
     };
+
     render() {
-        localStorage.setItem("open",JSON.stringify(this.state))
+        const temp = {
+            'open': this.state.open,
+        }
+        localStorage.setItem("open", JSON.stringify(temp))
         let loginStatus = localStorage.getItem("isAuth")
         const { classes, theme } = this.props;
         const { anchorEl } = this.state;
@@ -230,14 +148,19 @@ class Header extends Component {
                             </ListItem>
                             <ListItem button key="project">
                                 <ListItemIcon>
-                                    <NavLink to="/project"><AccountTreeIcon /></NavLink>
+                                    <NavLink to="/projects"><AccountTreeIcon /></NavLink>
                                 </ListItemIcon>
-                                <ListItemText><NavLink to="/project">Project</NavLink></ListItemText>
+                                <ListItemText><NavLink to={{
+                                    pathname: "/projects",
+                                    state: {
+                                        drawer: this.state.open
+                                    }
+                                }}> Project</NavLink></ListItemText>
                             </ListItem>
                         </List>
                         <Divider />
                         <List>
-                            <ListItem button key="project">
+                            <ListItem button key="logout">
                                 <ListItemIcon>
                                     <Link to="/logout"><LockIcon /></Link>
                                 </ListItemIcon>

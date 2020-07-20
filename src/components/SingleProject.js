@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import { Redirect } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
 import Header from './Header'
-import { connect } from 'react-redux'
-import '../style/dashboard.css'
-import drawerCss from '../style/drawer'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import classNames from "classnames";
+import drawerCss from '../style/drawer'
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
-
-function Home({ isAuth }) {
+function SingleProject(props) {
+    const { projects, getProjects } = props
     const classes = useStyles();
     const theme = useTheme();
     const [time, setTime] = useState(Date.now());
     let drawer = JSON.parse(localStorage.getItem("open"))
-    localStorage.setItem("loginDetails", JSON.stringify(isAuth))
-    let loginStatus = localStorage.getItem("isAuth")
+
 
     useEffect(() => {
         const interval = setInterval(() => setTime(Date.now()), 1000);
@@ -23,13 +19,8 @@ function Home({ isAuth }) {
             clearInterval(interval);
         };
     }, [])
-
-    if (loginStatus === "false") {
-        return <Redirect to='/' />
-    }
     return (
         <div>
-
             <section id="cover" className="min-vh-100" >
                 <Header />
                 <main
@@ -42,12 +33,4 @@ function Home({ isAuth }) {
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        isAuth: state.login
-    }
-}
-
-export default connect(mapStateToProps)(Home)
-
-
+export default SingleProject
