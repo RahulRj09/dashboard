@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Header from './Header'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { Redirect, NavLink, Link } from 'react-router-dom'
 import classNames from "classnames";
 import drawerCss from '../style/drawer'
 
@@ -19,6 +20,13 @@ function SingleProject(props) {
             clearInterval(interval);
         };
     }, [])
+
+
+    let loginStatus = localStorage.getItem("isAuth")
+    if (loginStatus === "false") {
+        return <Redirect to='/' />
+    }
+
     return (
         <div>
             <section id="cover" className="min-vh-100" >

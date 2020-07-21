@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { Redirect, NavLink, Link } from 'react-router-dom'
 import classNames from "classnames";
 import Header from './Header'
 import drawerCss from '../style/drawer'
@@ -16,6 +17,11 @@ function UserManagement() {
             clearInterval(interval);
         };
     }, [])
+
+    let loginStatus = localStorage.getItem("isAuth")
+    if (loginStatus === "false") {
+        return <Redirect to='/' />
+    }
 
     return (
         <div>

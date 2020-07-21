@@ -29,13 +29,11 @@ function Project(props) {
     }, [])
 
     let loginStatus = localStorage.getItem("isAuth")
+    let data = projects["projects"]
+    
     if (loginStatus === "false") {
         return <Redirect to='/' />
     }
-
-    let data = projects["projects"]
-
-
     return (
         <div>
             <section id="cover" className="min-vh-100"  >
