@@ -34,6 +34,7 @@ function ResetPassword() {
                     className={classNames(classes.content, {
                         [classes.contentShift]: drawer.open ? false : true,
                     })}>
+                    
                 </main>
             </section>
         </div>

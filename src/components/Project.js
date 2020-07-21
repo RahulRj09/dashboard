@@ -21,22 +21,25 @@ function Project(props) {
     const [time, setTime] = useState(Date.now());
     let drawer = JSON.parse(localStorage.getItem("open"))
     useEffect(() => {
-        getProjects()
         const interval = setInterval(() => setTime(Date.now()), 1000);
         return () => {
             clearInterval(interval);
         };
     }, [])
 
+    useEffect(() => {
+        getProjects()
+    }, [getProjects])
+
     let loginStatus = localStorage.getItem("isAuth")
     let data = projects["projects"]
-    
+
     if (loginStatus === "false") {
         return <Redirect to='/' />
     }
     return (
         <div>
-            <section id="cover" className="min-vh-100" style={{marginTop:'5%'}}  >
+            <section id="cover" className="min-vh-100" style={{ marginTop: '5%' }}  >
                 <Header />
                 <main
                     className={classNames(classes.content, {
