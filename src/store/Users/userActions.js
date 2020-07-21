@@ -73,11 +73,11 @@ const addUser = (userDetails) => {
             name: userDetails.name,
             clientId: userDetails.clientId
         }
-        dispatch(addUserRequest)
+        dispatch(addUserRequest())
         let url = "https://auth3.mobillor.com/ipaasusers/user"
         axios.post(url, payload).then(response => {
             console.log(response)
-            dispatch((response.data))
+            dispatch(addUserSuccess(response.data))
         }).catch(err => {
             dispatch(addUserFaliure(err.message))
         })
