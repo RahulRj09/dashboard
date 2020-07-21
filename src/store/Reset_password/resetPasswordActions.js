@@ -21,15 +21,15 @@ const resetPasswordFaliure = (error) => {
     }
 }
 
-const reseetPassword = (userDetails) => {
-    console.log(userDetails)
+const resetPassword = (resetPasswordState) => {
+    console.log(resetPasswordState)
     return (dispatch) => {
         let payload = {
-            username: userDetails.username,
-            email: userDetails.emailId,
-            oldpassword: userDetails.oldpassword,
-            newpassword: userDetails.newpassword,
-            clientId: userDetails.clientId
+            username: resetPasswordState.username,
+            email: resetPasswordState.emailId,
+            oldpassword: resetPasswordState.oldpassword,
+            newpassword: resetPasswordState.newpassword,
+            clientId: resetPasswordState.clientId
         }
         dispatch(resetPasswordRequest())
         let url = "https://auth3.mobillor.com/password/reset"
@@ -42,4 +42,4 @@ const reseetPassword = (userDetails) => {
     }
 }
 
-export { reseetPassword } 
+export { resetPassword } 

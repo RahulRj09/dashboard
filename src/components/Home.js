@@ -14,7 +14,10 @@ function Home({ isAuth }) {
     const theme = useTheme();
     const [time, setTime] = useState(Date.now());
     let drawer = JSON.parse(localStorage.getItem("open"))
-    localStorage.setItem("loginDetails", JSON.stringify(isAuth))
+    if (isAuth.isAuth) {
+        localStorage.setItem("loginDetails", JSON.stringify(isAuth))
+    }
+
     let loginStatus = localStorage.getItem("isAuth")
 
     useEffect(() => {
