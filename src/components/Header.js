@@ -119,8 +119,10 @@ class Header extends Component {
                                     open={open}
                                     onClose={this.handleClose}
                                 >
-                                    <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                                    <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                                    <MenuItem><Link to="/profile">Profile</Link></MenuItem>
+                                    {/* <MenuItem onClick={this.handleClose}>My account</MenuItem> */}
+                                    {/* <MenuItem > <Link to="/forgot_password">Forgot Password</Link></MenuItem> */}
+                                    <MenuItem > <Link to="/reset_password">Reset Password</Link></MenuItem>
                                     <MenuItem > <Link to="/logout">Logout</Link></MenuItem>
                                 </Menu>
                             </div>
