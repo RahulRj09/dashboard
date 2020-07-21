@@ -36,7 +36,7 @@ function Project(props) {
     }
     return (
         <div>
-            <section id="cover" className="min-vh-100"  >
+            <section id="cover" className="min-vh-100" style={{marginTop:'5%'}}  >
                 <Header />
                 <main
                     className={classNames(classes.content, {

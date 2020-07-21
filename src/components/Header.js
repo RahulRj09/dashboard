@@ -178,11 +178,6 @@ class Header extends Component {
 
                         </List>
                     </Drawer>
-                    <main className={classes.content}>
-                        <div className={classes.toolbar} />
-
-
-                    </main>
                 </div>
             );
         }
