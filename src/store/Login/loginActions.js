@@ -28,7 +28,7 @@ const login = (loginDetails) => {
             password: loginDetails.password
         }
         dispatch(loginRequest)
-        let url = "http://13.71.2.248:1338/login"
+        let url = "https://auth3.mobillor.com/login"
         return axios.post(url, payload).then(response => {
             return dispatch(loginSuccess(response.data))
         }).catch(err => {

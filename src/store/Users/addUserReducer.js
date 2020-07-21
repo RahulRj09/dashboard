@@ -1,28 +1,28 @@
-import { USER_REQUEST, USER_SUCCESS, USER_FAILURE } from './userTypes'
+import { ADD_USER_REQUEST, ADD_USER_SUCCESS, ADD_USER_FAILURE } from './userTypes'
 
 const initialState = {
     loading: false,
-    users: [],
+    user: {},
     error: ""
 }
 
-const usersReducer = (state = initialState, action) => {
+const addUserReducer = (state = initialState, action) => {
     switch (action.type) {
-        case USER_REQUEST:
+        case ADD_USER_REQUEST:
             return {
                 ...state,
                 loading: true
             }
-        case USER_SUCCESS:
+        case ADD_USER_SUCCESS:
             return {
                 loading: true,
-                users: action.payload,
+                user: action.payload,
                 error: ''
             }
-        case USER_FAILURE:
+        case ADD_USER_FAILURE:
             return {
                 loading: false,
-                users: [],
+                users: {},
                 error: action.payload
             }
         default:
@@ -32,4 +32,4 @@ const usersReducer = (state = initialState, action) => {
 
 
 
-export default usersReducer
+export default addUserReducer
