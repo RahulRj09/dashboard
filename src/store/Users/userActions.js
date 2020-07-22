@@ -45,7 +45,7 @@ const addUserFaliure = (error) => {
 const getUsers = () => {
     return function (dispatch) {
         dispatch(userRequest())
-        let url = 'https://auth3.mobillor.com/getAllUsers'
+        let url = 'http://13.71.2.248:1338/getAllUsers'
         axios.get(url).then(response => {
             console.log(response.data)
             let data = []
@@ -74,7 +74,7 @@ const addUser = (userDetails) => {
             clientId: userDetails.clientId
         }
         dispatch(addUserRequest())
-        let url = "https://auth3.mobillor.com/ipaasusers/user"
+        let url = "http://13.71.2.248:1338/ipaasusers/user"
         axios.post(url, payload).then(response => {
             console.log(response)
             dispatch(addUserSuccess(response.data))

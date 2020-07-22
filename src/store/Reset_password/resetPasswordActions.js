@@ -32,7 +32,7 @@ const resetPassword = (resetPasswordState) => {
             clientId: resetPasswordState.clientId
         }
         dispatch(resetPasswordRequest())
-        let url = "https://auth3.mobillor.com/password/reset"
+        let url = "http://13.71.2.248:1338/password/reset"
         axios.post(url, payload).then(response => {
             console.log(response)
             dispatch(resetPasswordSuccess(response))
