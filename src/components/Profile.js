@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import Header from './Header'
+import { connect } from 'react-redux'
 import '../style/dashboard.css'
 import drawerCss from '../style/drawer'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import classNames from "classnames";
 import '../style/profile.css'
-// import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import { getProfile } from '../store'
+
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 
 function Profile() {
@@ -94,16 +96,6 @@ function Profile() {
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-
-
-
-
-
-
                         </div>
                     </div>
                 </main>
@@ -112,4 +104,16 @@ function Profile() {
     )
 }
 
-export default Profile
+const mapStateToProps = (state) => {
+    return {
+        profileData: state.profile
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getProfile: () => dispatch(getProfile())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)
