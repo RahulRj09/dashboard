@@ -25,7 +25,7 @@ const projectFlowFaliure = (error) => {
 const getFlows = (projectName) => {
     return function (dispatch) {
         dispatch(projectFlowRequest())
-        let url = 'http://13.71.2.248:8000/projects/local/' + projectName
+        let url = "http://13.71.2.248:8000/projects/local/" + projectName + "/flows"
         axios.get(url).then(response => {
             const payload = response.data
             dispatch(projectFlowSuccess(payload))

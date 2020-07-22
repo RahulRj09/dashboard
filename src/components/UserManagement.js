@@ -10,7 +10,8 @@ import '../style/secondHeader.css'
 import { getUsers, addUser, deleteUser } from '../store/Users/userActions';
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 
-function UserManagement({ users, getUsers, addUser, deleteUser }) {
+function UserManagement(props) {
+    const { users, getUsers, addUser, deleteUser } = props
     let history = useHistory()
     const [state, setState] = useState({
         columns: [
@@ -18,7 +19,8 @@ function UserManagement({ users, getUsers, addUser, deleteUser }) {
             { title: 'Name', field: 'name' },
             { title: 'EmailId', field: 'emailId' },
             { title: 'Userrole', field: 'userRole', editable: 'never' }
-        ]
+        ],
+        data: []
     });
     const classes = useStyles();
     const theme = useTheme();
@@ -32,14 +34,17 @@ function UserManagement({ users, getUsers, addUser, deleteUser }) {
             clearInterval(interval);
         };
     }, [])
-    
+
     useEffect(() => {
         getUsers()
     }, [getUsers])
 
+    useEffect(() => {
+        setState({ ...state, data: users.users })
+        console.log(users["users"].length)
+    }, [users])
 
     let loginStatus = localStorage.getItem("isAuth")
-    console.log(users.users)
     if (loginStatus === "false") {
         return <Redirect to='/' />
     }
@@ -56,7 +61,7 @@ function UserManagement({ users, getUsers, addUser, deleteUser }) {
                         <MaterialTable
                             title="Users"
                             columns={state.columns}
-                            data={users.users}
+                            data={state.data}
                             editable={{
                                 onRowAdd: (newData) =>
                                     new Promise((resolve) => {
@@ -71,7 +76,7 @@ function UserManagement({ users, getUsers, addUser, deleteUser }) {
                                         setTimeout(() => {
                                             resolve();
                                             deleteUser(oldData.id)
-                                            window.location.reload();
+                                            // window.location.reload();
                                         }, 600);
                                     }),
                             }}
