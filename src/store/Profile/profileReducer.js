@@ -3,7 +3,7 @@ import projectReducer from '../Project/projectReducer'
 
 const initialState = {
     loading: false,
-    profile: [],
+    profile: {},
     error: ""
 }
 
@@ -23,7 +23,7 @@ const profileReducer = (state = initialState, action) => {
         case PROFILE_FAILURE:
             return {
                 loading: false,
-                profile: [],
+                profile: {},
                 error: action.payload
             }
         default:

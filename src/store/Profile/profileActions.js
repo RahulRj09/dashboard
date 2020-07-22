@@ -22,13 +22,12 @@ const profileFaliure = (error) => {
     }
 }
 
-const getProfile = () => {
+const getProfile = (userId) => {
     return function (dispatch) {
         dispatch(profileRequest())
-        let url = 'http://13.71.2.248:8000/profile'
+        let url = 'https://auth3.mobillor.com/profile/' + userId
         axios.get(url).then(response => {
-            console.log(response)
-            dispatch(profileSuccess(response))
+            dispatch(profileSuccess(response.data[0]))
         }).catch(error => {
             dispatch(profileFaliure(error.message))
         })

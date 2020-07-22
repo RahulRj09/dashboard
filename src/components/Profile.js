@@ -11,12 +11,14 @@ import { getProfile } from '../store'
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 
-function Profile() {
+function Profile({ profileData, getProfile }) {
     const classes = useStyles();
     const theme = useTheme();
     const [time, setTime] = useState(Date.now());
     let drawer = JSON.parse(localStorage.getItem("open"))
     let loginStatus = localStorage.getItem("isAuth")
+    let userDetails = JSON.parse(localStorage.getItem("loginDetails")).userData.data
+    let userId = userDetails.id
 
     useEffect(() => {
         const interval = setInterval(() => setTime(Date.now()), 1000);
@@ -25,6 +27,13 @@ function Profile() {
         };
     }, [])
 
+    useEffect(() => {
+        getProfile(userId)
+    }, [])
+
+    let profileInfo = profileData.profile
+    console.log(profileInfo)
+    const { name, email, username, roles, clientId } = profileInfo
     if (loginStatus === "false") {
         return <Redirect to='/' />
     }
@@ -53,38 +62,34 @@ function Profile() {
 
                                                         <input id="profile-image-upload" className="hidden" type="file" />
                                                     </div>
-
-
-
-
                                                 </div>
                                                 <br />
                                                 <div className="col-sm-6 profileName">
-                                                    <h4>Rahul Joshi </h4>
-                                                    <span><p>Admin</p></span>
+                                                    <h4>{name}</h4>
+                                                    <span><p>{roles}</p></span>
                                                 </div>
                                                 <div className="clearfix"></div>
                                                 <hr style={{ margin: "5px 0 5px 0" }} />
 
 
-                                                <div className="col-sm-5 col-xs-6 tital" >Name:</div><div className="col-sm-7 col-xs-6 ">Rahul</div>
+                                                <div className="col-sm-5 col-xs-6 tital" >Name :</div><div className="col-sm-7 col-xs-6 ">{name}</div>
                                                 <div className="clearfix"></div>
                                                 <div className="bot-border"></div>
 
-                                                <div className="col-sm-5 col-xs-6 tital " >Username</div><div className="col-sm-7"> rahul</div>
+                                                <div className="col-sm-5 col-xs-6 tital " >Username :</div><div className="col-sm-7"> {username}</div>
                                                 <div className="clearfix"></div>
                                                 <div className="bot-border"></div>
 
-                                                <div className="col-sm-5 col-xs-6 tital " >Email-Id</div><div className="col-sm-7"> rahul.joshi@mobillor.com</div>
+                                                <div className="col-sm-5 col-xs-6 tital " >Email-Id</div><div className="col-sm-7">{email}</div>
                                                 <div className="clearfix"></div>
                                                 <div className="bot-border"></div>
 
-                                                <div className="col-sm-5 col-xs-6 tital  " >User Role</div><div className="col-sm-7">Admin6</div>
+                                                <div className="col-sm-5 col-xs-6 tital  " >User Role</div><div className="col-sm-7">{roles}</div>
 
                                                 <div className="clearfix"></div>
                                                 <div className="bot-border"></div>
 
-                                                <div className="col-sm-5 col-xs-6 tital" >client id :</div><div className="col-sm-7">xxxxxxxxxx</div>
+                                                <div className="col-sm-5 col-xs-6 tital" >client id :</div><div className="col-sm-7">{clientId}</div>
 
                                                 <div className="clearfix"></div>
                                                 <div className="bot-border"></div>
@@ -112,7 +117,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getProfile: () => dispatch(getProfile())
+        getProfile: (userId) => dispatch(getProfile(userId))
     }
 }
 
