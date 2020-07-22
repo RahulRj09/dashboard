@@ -22,7 +22,6 @@ const resetPasswordFaliure = (error) => {
 }
 
 const resetPassword = (resetPasswordState) => {
-    console.log(resetPasswordState)
     return (dispatch) => {
         let payload = {
             username: resetPasswordState.username,
@@ -34,7 +33,6 @@ const resetPassword = (resetPasswordState) => {
         dispatch(resetPasswordRequest())
         let url = "https://auth3.mobillor.com/password/reset"
         axios.post(url, payload).then(response => {
-            console.log(response)
             dispatch(resetPasswordSuccess(response))
         }).catch(err => {
             dispatch(resetPasswordFaliure(err.message))

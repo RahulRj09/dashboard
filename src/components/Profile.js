@@ -32,7 +32,6 @@ function Profile({ profileData, getProfile }) {
     }, [])
 
     let profileInfo = profileData.profile
-    console.log(profileInfo)
     const { name, email, username, roles, clientId } = profileInfo
     if (loginStatus === "false") {
         return <Redirect to='/' />

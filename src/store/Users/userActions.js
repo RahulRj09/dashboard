@@ -71,14 +71,14 @@ const getUsers = () => {
         dispatch(userRequest())
         let url = 'https://auth3.mobillor.com/getAllUsers'
         axios.get(url).then(response => {
-            console.log(response.data)
             let data = []
             response.data.map(user => {
                 data.push({
                     userName: user.username,
                     name: user.name,
                     emailId: user.email,
-                    userRole: user.roles
+                    userRole: user.roles,
+                    id: user.id
                 })
             })
             dispatch(userSuccess(data))
@@ -89,7 +89,6 @@ const getUsers = () => {
 }
 
 const addUser = (userDetails) => {
-    console.log(userDetails)
     return (dispatch) => {
         let payload = {
             username: userDetails.userName,
@@ -100,7 +99,6 @@ const addUser = (userDetails) => {
         dispatch(addUserRequest())
         let url = "https://auth3.mobillor.com/ipaasusers/user"
         axios.post(url, payload).then(response => {
-            console.log(response)
             dispatch(addUserSuccess(response.data))
         }).catch(err => {
             dispatch(addUserFaliure(err.message))
@@ -108,7 +106,16 @@ const addUser = (userDetails) => {
     }
 }
 
-const deleteUser = () => {
-
+const deleteUser = (id) => {
+    console.log(id)
+    return (dispatch) => {
+        let url = "https://auth3.mobillor.com/ipaasusers/" + id
+        dispatch(deleteUserRequest())
+        axios.delete(url).then(response => {
+            dispatch(deleteUserSuccess(response.data))
+        }).catch(error => {
+            dispatch(deleteUserFaliure(error.message))
+        })
+    }
 }
 export { getUsers, addUser, deleteUser } 

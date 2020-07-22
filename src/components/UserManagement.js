@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Redirect, NavLink, Link } from 'react-router-dom'
+import { Redirect, NavLink, Link, useHistory } from 'react-router-dom'
 import MaterialTable from 'material-table';
 import classNames from "classnames";
 import { connect } from 'react-redux'
@@ -11,6 +11,7 @@ import { getUsers, addUser, deleteUser } from '../store/Users/userActions';
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 
 function UserManagement({ users, getUsers, addUser, deleteUser }) {
+    let history = useHistory()
     const [state, setState] = useState({
         columns: [
             { title: 'Username', field: 'userName' },
@@ -31,13 +32,14 @@ function UserManagement({ users, getUsers, addUser, deleteUser }) {
             clearInterval(interval);
         };
     }, [])
-
+    
     useEffect(() => {
         getUsers()
     }, [getUsers])
 
 
     let loginStatus = localStorage.getItem("isAuth")
+    console.log(users.users)
     if (loginStatus === "false") {
         return <Redirect to='/' />
     }
@@ -64,28 +66,12 @@ function UserManagement({ users, getUsers, addUser, deleteUser }) {
                                             addUser(newData)
                                         }, 600);
                                     }),
-                                // onRowUpdate: (newData, oldData) =>
-                                //     new Promise((resolve) => {
-                                //         setTimeout(() => {
-                                //             resolve();
-                                //             if (oldData) {
-                                //                 setState((prevState) => {
-                                //                     const data = [...prevState.data];
-                                //                     data[data.indexOf(oldData)] = newData;
-                                //                     return { ...prevState, data };
-                                //                 });
-                                //             }
-                                //         }, 600);
-                                //     }),
                                 onRowDelete: (oldData) =>
                                     new Promise((resolve) => {
                                         setTimeout(() => {
                                             resolve();
-                                            setState((prevState) => {
-                                                const data = [...prevState.data];
-                                                data.splice(data.indexOf(oldData), 1);
-                                                return { ...prevState, data };
-                                            });
+                                            deleteUser(oldData.id)
+                                            window.location.reload();
                                         }, 600);
                                     }),
                             }}
@@ -108,7 +94,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getUsers: () => dispatch(getUsers()),
         addUser: (newData) => dispatch(addUser(newData)),
-        deleteUser: () => dispatch(deleteUser())
+        deleteUser: (id) => dispatch(deleteUser(id))
     }
 }
 
