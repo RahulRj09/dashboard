@@ -29,7 +29,6 @@ const login = (loginDetails) => {
         }
         dispatch(loginRequest)
         let url = "https://auth3.mobillor.com/login"
-        //"https://auth3.mobillor.com/login"
         return axios.post(url, payload).then(response => {
             return dispatch(loginSuccess(response.data))
         }).catch(err => {

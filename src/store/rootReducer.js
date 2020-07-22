@@ -5,6 +5,7 @@ import usersReducer from './Users/userReducer'
 import addUserReducer from './Users/addUserReducer'
 import resetPasswordReducer from './Reset_password/resetPasswordReducer'
 import profileReducer from './Profile/profileReducer'
+import projectFlowReducer from './Project_flow/projectFlowReducer'
 
 const rootReducer = combineReducers({
     login: loginReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     users: usersReducer,
     user: addUserReducer,
     resetPassword: resetPasswordReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    projectFlow: projectFlowReducer
 
 })
 

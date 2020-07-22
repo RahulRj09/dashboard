@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react'
 import Header from './Header'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Redirect, NavLink, Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import classNames from "classnames";
 import drawerCss from '../style/drawer'
+import { getFlows, getProjects } from '../store';
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
-function SingleProject(props) {
-    const { projects, getProjects } = props
+function SingleProject({ location, flows, getFlows }) {
+    let projectName = location.state.projectName
+    console.log(flows)
     const classes = useStyles();
     const theme = useTheme();
     const [time, setTime] = useState(Date.now());
@@ -21,6 +24,10 @@ function SingleProject(props) {
         };
     }, [])
 
+
+    useEffect(() => {
+        getFlows(projectName)
+    }, [getFlows])
 
     let loginStatus = localStorage.getItem("isAuth")
     if (loginStatus === "false") {
@@ -41,4 +48,16 @@ function SingleProject(props) {
     )
 }
 
-export default SingleProject
+const mapStateToProps = (state) => {
+    return {
+        flows: state.projectFlow
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getFlows: (projectName) => dispatch(getFlows(projectName)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProject)
