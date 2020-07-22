@@ -23,7 +23,7 @@ function UserManagement({ users, getUsers, addUser }) {
     const theme = useTheme();
     const [time, setTime] = useState(Date.now());
     let drawer = JSON.parse(localStorage.getItem("open"))
-    let clientId = JSON.parse(localStorage.getItem("loginDetails")).userData.clientId
+    let clientId = JSON.parse(localStorage.getItem("loginDetails")).userData.data.clientId
 
     useEffect(() => {
         const interval = setInterval(() => setTime(Date.now()), 1000);

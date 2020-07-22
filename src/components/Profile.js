@@ -58,31 +58,31 @@ function Profile() {
                                                 </div>
                                                 <br />
                                                 <div className="col-sm-6 profileName">
-                                                    <h4 style={{ color: "#00b1b1" }}>Rahul Joshi </h4>
+                                                    <h4>Rahul Joshi </h4>
                                                     <span><p>Admin</p></span>
                                                 </div>
                                                 <div className="clearfix"></div>
                                                 <hr style={{ margin: "5px 0 5px 0" }} />
 
 
-                                                <div className="col-sm-5 col-xs-6 tital textcolor " >Name:</div><div className="col-sm-7 col-xs-6 ">Rahul</div>
+                                                <div className="col-sm-5 col-xs-6 tital" >Name:</div><div className="col-sm-7 col-xs-6 ">Rahul</div>
                                                 <div className="clearfix"></div>
                                                 <div className="bot-border"></div>
 
-                                                <div className="col-sm-5 col-xs-6 tital textcolor " >Username</div><div className="col-sm-7"> rahul</div>
+                                                <div className="col-sm-5 col-xs-6 tital " >Username</div><div className="col-sm-7"> rahul</div>
                                                 <div className="clearfix"></div>
                                                 <div className="bot-border"></div>
 
-                                                <div className="col-sm-5 col-xs-6 tital textcolor " >Email-Id</div><div className="col-sm-7"> rahul.joshi@mobillor.com</div>
+                                                <div className="col-sm-5 col-xs-6 tital " >Email-Id</div><div className="col-sm-7"> rahul.joshi@mobillor.com</div>
                                                 <div className="clearfix"></div>
                                                 <div className="bot-border"></div>
 
-                                                <div className="col-sm-5 col-xs-6 tital textcolor " >User Role</div><div className="col-sm-7">Admin6</div>
+                                                <div className="col-sm-5 col-xs-6 tital  " >User Role</div><div className="col-sm-7">Admin6</div>
 
                                                 <div className="clearfix"></div>
                                                 <div className="bot-border"></div>
 
-                                                <div className="col-sm-5 col-xs-6 tital textcolor " >client id :</div><div className="col-sm-7">xxxxxxxxxx</div>
+                                                <div className="col-sm-5 col-xs-6 tital" >client id :</div><div className="col-sm-7">xxxxxxxxxx</div>
 
                                                 <div className="clearfix"></div>
                                                 <div className="bot-border"></div>

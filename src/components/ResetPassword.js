@@ -18,7 +18,7 @@ function ResetPassword(props) {
     const [time, setTime] = useState(Date.now());
     let drawer = JSON.parse(localStorage.getItem("open"))
     let loginStatus = localStorage.getItem("isAuth")
-    let userDetails = JSON.parse(localStorage.getItem("loginDetails")).userData
+    let userDetails = JSON.parse(localStorage.getItem("loginDetails")).userData.data
     const [resetPasswordState, setResetPasswordState] = useState({
         username: userDetails.username,
         email: userDetails.email,
@@ -56,46 +56,47 @@ function ResetPassword(props) {
                     className={classNames(classes.content, {
                         [classes.contentShift]: drawer.open ? false : true,
                     })}>
-                    <div>
-                        <div className="col-md-10 offset-md-1 mt-5">
-                            <div className="card">
-                                <h4 className="card-header">Reset Password</h4>
-                                <div className="card-body">
-                                    <form onSubmit={resetPassword}>
-                                        <div >
-                                            <label style={{ marginTop: "5px" }} htmlFor="oldpassword">Old Password</label>
-                                            <input id="oldpassword"
-                                                className="form-control"
-                                                placeholder='old password'
-                                                type="password"
-                                                name="oldpassword" onChange={handleFormData} required />
+                    <div id="cover-caption">
+                        <div className="container-fluid">
+                            <div className="row text-white">
+                                <div className="col-xl-5 col-lg-8 col-md-8 col-sm-12 col-xs-12 col mx-auto form-4">
+                                    <div className="template" style={{ color: 'black' }}>
+
+
+
+
+                                        <div className="card">
+                                            <h4 className="card-header">Reset Password</h4>
+                                            <div className="card-body">
+                                                <form onSubmit={resetPassword}>
+                                                    <div >
+                                                        <label style={{ marginTop: "5px" }} htmlFor="oldpassword">Old Password</label>
+                                                        <input id="oldpassword"
+                                                            className="form-control"
+                                                            type="password"
+                                                            name="oldpassword" onChange={handleFormData} required />
+                                                    </div>
+                                                    <div >
+                                                        <label style={{ marginTop: "5px" }} htmlFor="newpassword">New Password</label>
+                                                        <input id="newpassword"
+                                                            className="form-control"
+                                                            type="password"
+                                                            name="newpassword" onChange={handleFormData} required />
+                                                    </div>
+                                                    <div style={{ display: "flex" }}>
+                                                        <button type="button" className="btn btn-light"><Link to="/home">Back</Link></button>
+                                                        <button type="submit" className="btn btn-success">Reset Password</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
-                                        <div >
-                                            <label style={{ marginTop: "5px" }} htmlFor="newpassword">New Password</label>
-                                            <input id="newpassword"
-                                                className="form-control"
-                                                placeholder='new password'
-                                                type="password"
-                                                name="newpassword" onChange={handleFormData} required />
-                                        </div>
-                                        {/* <p>
-                                            {
-                                                (() => {
-                                                    if (props.resetPasswordData.error) {
-                                                        <div class="alert alert-danger" role="alert">
-                                                            Password not update</div>
-                                                    }
-                                                })
-                                                    ()}
-                                        </p> */}
-                                        <div style={{ display: "flex" }}>
-                                            <button type="button" className="btn btn-light"><Link to="/home">Back</Link></button>
-                                            <button type="submit" className="btn btn-success">Reset Password</button>
-                                        </div>
-                                    </form>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div>
                     </div>
                 </main>
             </section >
