@@ -7,10 +7,10 @@ import { connect } from 'react-redux'
 import Header from './Header'
 import drawerCss from '../style/drawer'
 import '../style/secondHeader.css'
-import { getUsers, addUser } from '../store/Users/userActions';
+import { getUsers, addUser, deleteUser } from '../store/Users/userActions';
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 
-function UserManagement({ users, getUsers, addUser }) {
+function UserManagement({ users, getUsers, addUser, deleteUser }) {
     const [state, setState] = useState({
         columns: [
             { title: 'Username', field: 'userName' },
@@ -64,19 +64,19 @@ function UserManagement({ users, getUsers, addUser }) {
                                             addUser(newData)
                                         }, 600);
                                     }),
-                                onRowUpdate: (newData, oldData) =>
-                                    new Promise((resolve) => {
-                                        setTimeout(() => {
-                                            resolve();
-                                            if (oldData) {
-                                                setState((prevState) => {
-                                                    const data = [...prevState.data];
-                                                    data[data.indexOf(oldData)] = newData;
-                                                    return { ...prevState, data };
-                                                });
-                                            }
-                                        }, 600);
-                                    }),
+                                // onRowUpdate: (newData, oldData) =>
+                                //     new Promise((resolve) => {
+                                //         setTimeout(() => {
+                                //             resolve();
+                                //             if (oldData) {
+                                //                 setState((prevState) => {
+                                //                     const data = [...prevState.data];
+                                //                     data[data.indexOf(oldData)] = newData;
+                                //                     return { ...prevState, data };
+                                //                 });
+                                //             }
+                                //         }, 600);
+                                //     }),
                                 onRowDelete: (oldData) =>
                                     new Promise((resolve) => {
                                         setTimeout(() => {
@@ -107,7 +107,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getUsers: () => dispatch(getUsers()),
-        addUser: (newData) => dispatch(addUser(newData))
+        addUser: (newData) => dispatch(addUser(newData)),
+        deleteUser: () => dispatch(deleteUser())
     }
 }
 

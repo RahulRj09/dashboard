@@ -6,6 +6,7 @@ import addUserReducer from './Users/addUserReducer'
 import resetPasswordReducer from './Reset_password/resetPasswordReducer'
 import profileReducer from './Profile/profileReducer'
 import projectFlowReducer from './Project_flow/projectFlowReducer'
+import deleteUserReducer from './Users/deleteUserReducer'
 
 const rootReducer = combineReducers({
     login: loginReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     user: addUserReducer,
     resetPassword: resetPasswordReducer,
     profile: profileReducer,
-    projectFlow: projectFlowReducer
+    projectFlow: projectFlowReducer,
+    deleteUser: deleteUserReducer
 
 })
 

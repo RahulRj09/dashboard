@@ -1,5 +1,29 @@
-import { USER_REQUEST, USER_SUCCESS, USER_FAILURE, ADD_USER_REQUEST, ADD_USER_SUCCESS, ADD_USER_FAILURE } from './userTypes'
+import {
+    USER_REQUEST, USER_SUCCESS, USER_FAILURE, ADD_USER_REQUEST,
+    ADD_USER_SUCCESS, ADD_USER_FAILURE,
+    DELETE_USER_REQUEST, DELETE_USER_SUCCESS, DELETE_USER_FAILURE
+} from './userTypes'
 import axios from 'axios';
+
+const deleteUserRequest = () => {
+    return {
+        type: DELETE_USER_REQUEST
+    }
+}
+
+const deleteUserSuccess = (payload) => {
+    return {
+        type: DELETE_USER_SUCCESS,
+        payload: payload
+    }
+}
+
+const deleteUserFaliure = (error) => {
+    return {
+        type: DELETE_USER_FAILURE,
+        payload: error
+    }
+}
 
 const userRequest = () => {
     return {
@@ -84,4 +108,7 @@ const addUser = (userDetails) => {
     }
 }
 
-export { getUsers, addUser } 
+const deleteUser = () => {
+
+}
+export { getUsers, addUser, deleteUser } 
