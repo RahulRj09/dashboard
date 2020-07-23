@@ -11,6 +11,7 @@ import UserManagement from './components/UserManagement';
 import Profile from './components/Profile';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
+import ErrorLog from './components/ErrorLog';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/forgot_password" component={ForgotPassword} />
           <Route exact path="/reset_password" component={ResetPassword} />
+          <Route exact path="/error_log" component={ErrorLog} />
         </Switch>
       </Router>
     </Provider>

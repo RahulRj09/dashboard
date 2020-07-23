@@ -18,6 +18,7 @@ import LockIcon from '@material-ui/icons/Lock';
 import HomeIcon from '@material-ui/icons/Home';
 import headerStyle from '../style/headerStyle'
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import ErrorIcon from '@material-ui/icons/Error';
 
 const drawerWidth = 220;
 
@@ -166,6 +167,12 @@ class Header extends Component {
                                     <NavLink to="/user_management"><GroupAddIcon /></NavLink>
                                 </ListItemIcon>
                                 <ListItemText><NavLink to="/user_management">User Management</NavLink></ListItemText>
+                            </ListItem>
+                            <ListItem button key="ErrorLog">
+                                <ListItemIcon>
+                                    <NavLink to="/error_log"><ErrorIcon /></NavLink>
+                                </ListItemIcon>
+                                <ListItemText><NavLink to="/error_log">Error Log</NavLink></ListItemText>
                             </ListItem>
 
                         </List>
