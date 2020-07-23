@@ -20,8 +20,6 @@ import headerStyle from '../style/headerStyle'
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import ErrorIcon from '@material-ui/icons/Error';
 
-const drawerWidth = 220;
-
 const styles = theme => (headerStyle(theme));
 
 class Header extends Component {

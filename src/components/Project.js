@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import { connect } from 'react-redux'
-import { Redirect, NavLink, Link } from 'react-router-dom'
+import { Redirect, NavLink } from 'react-router-dom'
 import { getProjects } from '../store'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import classNames from "classnames";
