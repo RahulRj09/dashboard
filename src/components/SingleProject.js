@@ -14,15 +14,11 @@ function SingleProject({ location, flows, getFlows }) {
 
     const [state, setState] = useState({
         columns: [
-            { title: 'id', field: 'id' },
-            { title: 'type', field: 'type' },
-            { title: 'z', field: 'z' },
-            { title: 'name', field: 'name' },
-            { title: 'topic', field: 'topic' },
-            { title: 'payload', field: 'payload' },
-            { title: 'payloadType', field: 'payloadType' },
-            { title: 'repat', field: 'repat' },
-            { title: 'crontab', field: 'crontab' }
+            { title: 'Type', field: 'type' },
+            { title: 'Name', field: 'name' },
+            { title: 'Repat', field: 'repat' },
+            { title: 'Status', field: 'status' },
+            { title: 'Error', field: 'error' }
         ],
         data: []
     });
@@ -49,17 +45,16 @@ function SingleProject({ location, flows, getFlows }) {
     if (loginStatus === "false") {
         return <Redirect to='/' />
     }
-
+    let loading = flows.loading
     const createBox = (flows) => {
         let data = []
-        console.log(flows)
         for (let i = 0; i < flows.length; i++) {
             let temp = <div className="bs-example">
                 <div className="accordion" id="accordionExample">
                     <div className="card">
                         <div className="card-header" id="headingOne">
                             <h2 className="mb-0">
-                                <button type="button" className="btn btn-link" data-toggle="collapse" data-target={`#collapse${i}`}><i className="fa fa-angle-down"></i>{flows[i]["flow"]}</button>
+                                <button type="button" className="btn btn-link" data-toggle="collapse" data-target={`#collapse${i}`}><i className="fa fa-angle-down"></i>{flows[i]["flow"]}</button> <h6 style={{ float: "right" }}>Total Nodes : {flows[i]["nodes"].length }</h6>
                             </h2>
                         </div>
                         <div id={`collapse${i}`} className="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
@@ -84,6 +79,7 @@ function SingleProject({ location, flows, getFlows }) {
 
     return (
         <div>
+
             <section id="cover" className="min-vh-100" style={{ marginTop: '5%' }} >
                 <Header />
                 <main
@@ -91,6 +87,12 @@ function SingleProject({ location, flows, getFlows }) {
                         [classes.contentShift]: drawer.open ? false : true,
                     })}>
                     <div className="container">
+                        <div>
+                            <h2 className="mb-0">{projectName}
+                                <button type="button" className="btn btn-light" style={{ float: "right" }}><Link to="/projects">Back</Link></button></h2>
+
+                        </div>
+                        <hr></hr>
                         {
                             createBox(flows.flows)
                         }

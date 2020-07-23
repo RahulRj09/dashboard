@@ -69,6 +69,12 @@ function UserManagement(props) {
                                             resolve();
                                             newData["clientId"] = clientId
                                             addUser(newData)
+                                            setState((prevState) => {
+                                                newData["userRole"] ="user"
+                                                const data = [...prevState.data];
+                                                data.push(newData);
+                                                return { ...prevState, data };
+                                            });
                                         }, 600);
                                     }),
                                 onRowDelete: (oldData) =>
@@ -76,7 +82,11 @@ function UserManagement(props) {
                                         setTimeout(() => {
                                             resolve();
                                             deleteUser(oldData.id)
-                                            // window.location.reload();
+                                            setState((prevState) => {
+                                                const data = [...prevState.data];
+                                                data.splice(data.indexOf(oldData), 1);
+                                                return { ...prevState, data };
+                                            });
                                         }, 600);
                                     }),
                             }}
