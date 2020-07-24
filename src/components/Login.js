@@ -66,9 +66,9 @@ function Login({ isAuth, isAuthCall }) {
                                                                 </div>
                                                                 {
 
-                                                                    isAuth.error ? <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                                    isAuth.error ? <div className="alert alert-danger alert-dismissible fade show" role="alert">
                                                                         Invalid username/password
-                                                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                            <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
                                                                     </div> : ""

@@ -8,7 +8,10 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import classNames from "classnames";
 import { connect } from 'react-redux'
 import { resetPassword } from '../store'
-
+import '../style/form1.css'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
+import TextError from './TextError'
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 
@@ -19,13 +22,23 @@ function ResetPassword(props) {
     let drawer = JSON.parse(localStorage.getItem("open"))
     let loginStatus = localStorage.getItem("isAuth")
     let userDetails = JSON.parse(localStorage.getItem("loginDetails")).userData.data
-    const [resetPasswordState, setResetPasswordState] = useState({
+
+    const initialValue = {
         username: userDetails.username,
         email: userDetails.email,
         oldpassword: "",
         newpassword: "",
         clientId: userDetails.clientId
+    }
+
+    const validationSchema = Yup.object({
+        oldpassword: Yup.string().required("Required!"),
+        newpassword: Yup.string().required("Required!")
+
     })
+    const onSubmit = async values => {
+        props.resetPassword(values)
+    }
 
     useEffect(() => {
         const interval = setInterval(() => setTime(Date.now()), 1000);
@@ -33,16 +46,6 @@ function ResetPassword(props) {
             clearInterval(interval);
         };
     }, [])
-
-    const handleFormData = (event) => {
-        setResetPasswordState({ ...resetPasswordState, [event.target.name]: event.target.value })
-    }
-
-    const resetPassword = (event) => {
-        event.preventDefault()
-        props.resetPassword(resetPasswordState)
-    }
-
     if (loginStatus === "false") {
         return <Redirect to='/' />
     }
@@ -61,33 +64,49 @@ function ResetPassword(props) {
                             <div className="row text-white">
                                 <div className="col-xl-5 col-lg-8 col-md-8 col-sm-12 col-xs-12 col mx-auto form-4">
                                     <div className="template" style={{ color: 'black' }}>
-
-
-
-
                                         <div className="card">
                                             <h4 className="card-header">Reset Password</h4>
                                             <div className="card-body">
-                                                <form onSubmit={resetPassword}>
-                                                    <div >
-                                                        <label style={{ marginTop: "5px" }} htmlFor="oldpassword">Old Password</label>
-                                                        <input id="oldpassword"
-                                                            className="form-control"
-                                                            type="password"
-                                                            name="oldpassword" onChange={handleFormData} required />
-                                                    </div>
-                                                    <div >
-                                                        <label style={{ marginTop: "5px" }} htmlFor="newpassword">New Password</label>
-                                                        <input id="newpassword"
-                                                            className="form-control"
-                                                            type="password"
-                                                            name="newpassword" onChange={handleFormData} required />
-                                                    </div>
-                                                    <div style={{ display: "flex" }}>
-                                                        <button type="button" className="btn btn-light"><Link to="/home">Back</Link></button>
-                                                        <button type="submit" className="btn btn-success">Reset Password</button>
-                                                    </div>
-                                                </form>
+                                                <Formik initialValues={initialValue} validationSchema={validationSchema} onSubmit={onSubmit} >
+                                                    {
+                                                        formik => {
+                                                            return <Form>
+                                                                <div className="form-group">
+                                                                    <label htmlFor="oldpassword">Old Password</label>
+                                                                    <Field type="password" name="oldpassword" className="form-control" />
+                                                                    <ErrorMessage name="oldpassword" component={TextError} />
+                                                                </div>
+                                                                <div className="form-group">
+                                                                    <label htmlFor="newpassword">New Password</label>
+                                                                    <Field type="password" name="newpassword" className="form-control" />
+                                                                    <ErrorMessage name="newpassword" component={TextError} />
+                                                                </div>
+                                                                {
+
+                                                                    props.resetPasswordData.error ? <div className="alert alert-danger alert-dismissible fade show" role="alert">
+                                                                        Invalid old password
+                                                                            <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div> : ""
+                                                                }
+                                                                {
+
+                                                                    props.resetPasswordData.succeeded ? <div className="alert alert-success alert-dismissible fade show" role="alert">
+                                                                        Password reset successfully
+                                                                            <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div> : ""
+                                                                }
+                                                                <div style={{ display: "flex" }}>
+                                                                    <button type="button" className="btn btn-light"><Link to="/home">Back</Link></button>
+                                                                    <button type="submit" className="btn btn-success">Reset Password</button>
+                                                                </div>
+                                                            </Form>
+                                                        }
+                                                    }
+                                                </Formik>
                                             </div>
                                         </div>
 
