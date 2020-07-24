@@ -30,6 +30,7 @@ const login = (loginDetails) => {
         dispatch(loginRequest)
         let url = "https://auth3.mobillor.com/login"
         return axios.post(url, payload).then(response => {
+            console.log(response.data)
             return dispatch(loginSuccess(response.data))
         }).catch(err => {
             return dispatch(loginFaliure(err.message))

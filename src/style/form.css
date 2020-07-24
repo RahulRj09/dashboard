@@ -24,7 +24,7 @@ section {
 
 button {
     float: right;
-    background-color: red;
+    /* background-color: red; */
 }
 
 .form-control:focus {

@@ -5,28 +5,34 @@ import { useHistory, Redirect } from 'react-router-dom'
 import logo from '../assets/mobillor.png'
 import styles from '../style/header.module.css'
 import '../style/form.css'
+import '../style/form1.css'
 import Header from './Header'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
+import TextError from './TextError'
 
 function Login({ isAuth, isAuthCall }) {
+    console.log(isAuth)
     let history = useHistory()
-    const [loginDetails, setLoginDetails] = useState({ username: "", password: "" })
-    const handleFormData = (event) => {
-        setLoginDetails({ ...loginDetails, [event.target.name]: event.target.value })
+    const initialValue = {
+        username: '',
+        password: ''
     }
 
-    const submitForm = async (e) => {
-        e.preventDefault()
-        let data = await isAuthCall(loginDetails)
+    const validationSchema = Yup.object({
+        username: Yup.string().required("Required!"),
+        password: Yup.string().required("Required!")
+
+    })
+    const onSubmit = async values => {
+        let data = await isAuthCall(values)
+        console.log(data)
         if (data.type === "LOGIN_SUCCESS") {
             localStorage.setItem("isAuth", true)
             history.push('/home')
-        } else {
-            history.push('/')
         }
-
-
     }
-    const { username, password } = loginDetails;
+
     let loginStatus = localStorage.getItem("isAuth")
     if (loginStatus !== "false") {
         return <Redirect to='/home' />
@@ -40,41 +46,41 @@ function Login({ isAuth, isAuthCall }) {
                         <div className="row text-white">
                             <div className="col-xl-5 col-lg-8 col-md-8 col-sm-12 col-xs-12 col mx-auto form-4">
                                 <div className="template" style={{ color: 'black' }}>
-
                                     <div className="card">
                                         <div className="card-header" > <img src={logo} alt="logo" className={styles.logo} /></div>
                                         <div className="card-body" style={{ display: 'flex' }}>
                                             <div style={{ width: '70%', marginLeft: '30%' }}>
-                                                <form onSubmit={submitForm} >
-                                                    <div className="form-group">
-                                                        <label htmlFor="username">Username</label>
-                                                        <input type="text" name="username" value={username} onChange={handleFormData} required autoFocus className="form-control" />
-                                                        <div className="invalid-feedback">
-                                                            <div >Username is required</div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <label htmlFor="password">Password</label>
-                                                        <input type="password" name="password" value={password} onChange={handleFormData} required className="form-control" />
-                                                        <div className="invalid-feedback">
-                                                            <div >Password is required</div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <label><input type="checkbox" name="remember" /> Remember Me </label>
-                                                    </div>
-                                                    <button type="submit" className="btn btn-secondary">
-                                                        Login
-                                </button>
+                                                <Formik initialValues={initialValue} validationSchema={validationSchema} onSubmit={onSubmit} >
+                                                    {
+                                                        formik => {
+                                                            return <Form>
+                                                                <div className="form-group">
+                                                                    <label htmlFor="username">username</label>
+                                                                    <Field type="text" name="username" className="form-control" />
+                                                                    <ErrorMessage name="username" component={TextError} />
+                                                                </div>
+                                                                <div className="form-group">
+                                                                    <label htmlFor="password">password</label>
+                                                                    <Field type="password" name="password" className="form-control" />
+                                                                    <ErrorMessage name="password" component={TextError} />
+                                                                </div>
+                                                                {
 
-                                                </form>
+                                                                    isAuth.error ? <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                                        Invalid username/password
+                                                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div> : ""
+                                                                }
+                                                                <button type='submit' className="btn btn-secondary" disabled={!formik.isValid}>Login</button>
+                                                            </Form>
+                                                        }
+                                                    }
+                                                </Formik>
                                             </div>
                                         </div>
                                     </div>
-
-
-
-
                                 </div>
                             </div>
                         </div>
