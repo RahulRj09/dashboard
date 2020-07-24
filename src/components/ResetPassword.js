@@ -84,7 +84,7 @@ function ResetPassword(props) {
                                                                 {
 
                                                                     props.resetPasswordData.error ? <div className="alert alert-danger alert-dismissible fade show" role="alert">
-                                                                        Invalid old password
+                                                                        <span class="help-block">Invalid old password</span> 
                                                                             <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
@@ -93,7 +93,7 @@ function ResetPassword(props) {
                                                                 {
 
                                                                     props.resetPasswordData.succeeded ? <div className="alert alert-success alert-dismissible fade show" role="alert">
-                                                                        Password reset successfully
+                                                                       <span class="help-block">Password reset successfully</span> 
                                                                             <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
