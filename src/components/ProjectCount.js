@@ -26,7 +26,7 @@ function ProjectCount({ projectCount, getProjectCount }) {
                             P
       </Avatar>
                     }
-                    title="Project Count"
+                    title="Project"
                     subheader="September 14, 2016"
                 />
                 <CardContent>

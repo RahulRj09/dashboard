@@ -26,8 +26,21 @@ const getErrorCount = () => {
         dispatch(errorCountRequest())
         let url = "http://13.71.2.248:8000/projects/logs"
         axios.get(url).then(response => {
-            console.log(response.data)
-            dispatch(errorCountSuccess(response.data))
+            let errors = {
+                warning: 0,
+                error: 0
+            }
+
+            response.data.map(temp => {
+                if (temp.level === 20) {
+                    errors.error += 1
+                }
+                if (temp.level === 30) {
+                    errors.warning += 1
+                }
+            })
+
+            dispatch(errorCountSuccess(errors))
         }).catch(err => {
             dispatch(errorCountFaliure(err.message))
         })
