@@ -9,6 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import { getProjectCount } from '../store';
 import dashboardCard from '../style/dashboardCard'
 
+let today = new Date();
+let date = today.toUTCString().slice(0, -4)
+
 const useStyles = makeStyles((theme) => dashboardCard(theme));
 
 function ProjectCount({ projectCount, getProjectCount }) {
@@ -30,7 +33,7 @@ function ProjectCount({ projectCount, getProjectCount }) {
       </Avatar>
                     }
                     title="Project"
-                    subheader="September 14, 2016"
+                    subheader={date}
                 />
                 <CardContent>
                     <Typography variant="body2" color="textSecondary" component="p">

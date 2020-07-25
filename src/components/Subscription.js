@@ -18,6 +18,10 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import TextError from './TextError'
 
+let today = new Date();
+let date = today.toUTCString().slice(0, -4)
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 345,
@@ -67,7 +71,7 @@ const Subscription = () => {
                     //     </IconButton>
                     // }
                     title="Subscription"
-                    subheader="September 14, 2016"
+                    subheader={date}
                 />
                 <CardContent>
                     <Typography variant="body2" color="textSecondary" component="p">
