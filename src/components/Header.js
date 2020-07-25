@@ -19,6 +19,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import headerStyle from '../style/headerStyle'
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import ErrorIcon from '@material-ui/icons/Error';
+import CardMembershipIcon from '@material-ui/icons/CardMembership';
 
 const styles = theme => (headerStyle(theme));
 
@@ -171,6 +172,12 @@ class Header extends Component {
                                     <NavLink to="/error_log"><ErrorIcon /></NavLink>
                                 </ListItemIcon>
                                 <ListItemText><NavLink to="/error_log">Error Log</NavLink></ListItemText>
+                            </ListItem>
+                            <ListItem button key="Subscription">
+                                <ListItemIcon>
+                                    <NavLink to="/subscription"><CardMembershipIcon /></NavLink>
+                                </ListItemIcon>
+                                <ListItemText><NavLink to="/subscription">Subscription</NavLink></ListItemText>
                             </ListItem>
 
                         </List>
