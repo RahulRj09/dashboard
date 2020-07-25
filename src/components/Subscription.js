@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export const Subscription = () => {
+
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
 
@@ -60,21 +61,23 @@ export const Subscription = () => {
                             S
           </Avatar>
                     }
-                    action={
-                        <IconButton aria-label="settings">
-                            <MoreVertIcon />
-                        </IconButton>
-                    }
+                    // action={
+                    //     <IconButton aria-label="settings">
+                    //         <MoreVertIcon />
+                    //     </IconButton>
+                    // }
                     title="Subscription"
                     subheader="September 14, 2016"
                 />
                 <CardContent>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        <div className="progress">
-                            <div className="progress-bar bg-success" role="progressbar" style={{ width: "45%" }} aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">25%</div>
-                            <div className="progress-bar bg-warning" role="progressbar" style={{ width: "70%" }} aria-valuenow="70" aria-valuemin="45" aria-valuemax="100"></div>
-                            <div className="progress-bar bg-danger" role="progressbar" style={{ width: "100%" }} aria-valuenow="100" aria-valuemin="70" aria-valuemax="100"></div>
-                        </div>
+                        {
+                            <div className="progress">
+                                <div className="progress-bar bg-success" role="progressbar" style={{ width: "45%" }} aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                <div className="progress-bar bg-warning" role="progressbar" style={{ width: "70%" }} aria-valuenow="70" aria-valuemin="45" aria-valuemax="100"></div>
+                                <div className="progress-bar bg-danger" role="progressbar" style={{ width: "100%" }} aria-valuenow="100" aria-valuemin="70" aria-valuemax="100"></div>
+                            </div>
+                        }
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
                         <br />
@@ -84,7 +87,7 @@ export const Subscription = () => {
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                    <h5>Generate subscription key</h5>
+                    <h5>Re-Generate subscription key</h5>
                     <IconButton
                         className={clsx(classes.expand, {
                             [classes.expandOpen]: expanded,

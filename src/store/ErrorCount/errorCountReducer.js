@@ -1,28 +1,28 @@
-import { ERROR_LOG_REQUEST, ERROR_LOG_SUCCESS, ERROR_LOG_FAILURE } from './errorLogTypes'
+import { ERROR_COUNT_REQUEST, ERROR_COUNT_SUCCESS, ERROR_COUNT_FAILURE } from './errorCountTypes'
 
 const initialState = {
     loading: false,
-    errors: [],
+    errorCount: {},
     error: ""
 }
 
-const errorLogReducer = (state = initialState, action) => {
+const errorCountReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ERROR_LOG_REQUEST:
+        case ERROR_COUNT_REQUEST:
             return {
                 ...state,
                 loading: true
             }
-        case ERROR_LOG_SUCCESS:
+        case ERROR_COUNT_SUCCESS:
             return {
                 loading: true,
-                errors: action.payload,
+                errorCount: action.payload,
                 error: ''
             }
-        case ERROR_LOG_FAILURE:
+        case ERROR_COUNT_FAILURE:
             return {
                 loading: false,
-                errors: [],
+                errorCount: {},
                 error: action.payload
             }
         default:
@@ -32,4 +32,4 @@ const errorLogReducer = (state = initialState, action) => {
 
 
 
-export default errorLogReducer
+export default errorCountReducer

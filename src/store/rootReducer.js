@@ -8,6 +8,7 @@ import profileReducer from './Profile/profileReducer'
 import projectFlowReducer from './Project_flow/projectFlowReducer'
 import deleteUserReducer from './Users/deleteUserReducer'
 import subscriptionReducer from './Subscription/subscriptionReducer'
+import errorCountReducer from './ErrorCount/errorCountReducer'
 
 const rootReducer = combineReducers({
     login: loginReducer,
@@ -18,9 +19,8 @@ const rootReducer = combineReducers({
     profile: profileReducer,
     projectFlow: projectFlowReducer,
     deleteUser: deleteUserReducer,
-    subscriptionDetails: subscriptionReducer
-
-
+    subscriptionDetails: subscriptionReducer,
+    errorCount: errorCountReducer
 })
 
 export default rootReducer
