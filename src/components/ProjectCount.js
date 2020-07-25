@@ -39,7 +39,7 @@ function ProjectCount({ projectCount, getProjectCount }) {
                     <Typography variant="body2" color="textSecondary" component="p">
                         <p>Total projects : {count}</p>
                         <p>Active project : {active}</p>
-                        <p>Total active project flows : {flowsCount}</p>
+                        <p>Active project total flows : {flowsCount}</p>
                     </Typography>
                 </CardContent>
             </Card>
