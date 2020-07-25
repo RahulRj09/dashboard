@@ -17,6 +17,9 @@ function ProjectCount({ projectCount, getProjectCount }) {
     useEffect(() => {
         getProjectCount()
     }, [getProjectCount])
+
+    let { count, active, flowsCount } = projectCount.projectsCount
+
     return (
         <div>
             <Card className={classes.root}>
@@ -31,9 +34,9 @@ function ProjectCount({ projectCount, getProjectCount }) {
                 />
                 <CardContent>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        {/* <br /> */}
-                        <p>Total Projects {projectCount.projectsCount}</p>
-
+                        <p>Total projects : {count}</p>
+                        <p>Active project : {active}</p>
+                        <p>Total active project flows : {flowsCount}</p>
                     </Typography>
                 </CardContent>
             </Card>

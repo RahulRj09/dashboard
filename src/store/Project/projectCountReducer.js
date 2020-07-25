@@ -2,7 +2,7 @@ import { PROJECT_COUNT_REQUEST, PROJECT_COUNT_SUCCESS, PROJECT_COUNT_FAILURE } f
 
 const initialState = {
     loading: false,
-    projectsCount: 0,
+    projectsCount: {},
     error: ""
 }
 
@@ -22,7 +22,7 @@ const projectCountReducer = (state = initialState, action) => {
         case PROJECT_COUNT_FAILURE:
             return {
                 loading: false,
-                projectsCount: 0,
+                projectsCount: {},
                 error: action.payload
             }
         default:

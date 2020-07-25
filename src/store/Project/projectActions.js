@@ -4,6 +4,8 @@ import {
 } from './projectTypes'
 import axios from 'axios';
 import { PROJECT_FLOW_FAILURE } from '../Project_flow/projectFlowTypes';
+import { act } from 'react-dom/test-utils';
+import { getFlows } from '../Project_flow/projectFlowActions';
 
 const projectRequest = () => {
     return {
@@ -64,12 +66,29 @@ const getProjectCount = () => {
     return (dispatch) => {
         dispatch(projectCountRequest())
         let url = 'http://13.71.2.248:8000/projects'
-        axios.get(url).then(response => {
-            dispatch(projectCountSuccess(response.data.projects.length))
+        axios.get(url).then(async response => {
+            let active = response.data.active
+            let flows = await getFlowsCount(active)
+            let projectCountInfo = {
+                count: response.data.projects.length,
+                active: active,
+                flowsCount: flows
+            }
+            dispatch(projectCountSuccess(projectCountInfo))
         }).catch(error => {
             dispatch(projectCountFaliure(error.message))
         })
     }
+}
+
+
+const getFlowsCount = (projectName) => {
+    let url = "http://13.71.2.248:8000/projects/local/" + projectName + "/flows"
+    return axios.get(url).then(response => {
+        return response.data.length
+    }).catch(error => {
+        console.log(error.message)
+    })
 }
 
 export { getProjects, getProjectCount } 
