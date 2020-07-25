@@ -6,6 +6,7 @@ import '../style/dashboard.css'
 import drawerCss from '../style/drawer'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import classNames from "classnames";
+import { Subscription } from './Subscription'
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 
@@ -32,16 +33,22 @@ function Home({ isAuth }) {
     }
     return (
         <div>
-
-            <section id="cover" className="min-vh-100" >
+            <section id="cover" className="min-vh-100" style={{ marginTop: '5%' }}  >
                 <Header />
                 <main
                     className={classNames(classes.content, {
                         [classes.contentShift]: drawer.open ? false : true,
                     })}>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-4" style={{ marginBottom: "3%" }} >
+                                <Subscription />
+                            </div>
+                        </div>
+                    </div>
                 </main>
             </section>
-        </div>
+        </div >
     )
 }
 
