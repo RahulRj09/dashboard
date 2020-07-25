@@ -5,7 +5,7 @@ function dashboardCard(theme) {
     let dashboardCard = {
         root: {
             maxWidth: 345,
-            height: 275
+            height: 250
         },
         media: {
             height: 0,

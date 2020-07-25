@@ -6,7 +6,7 @@ import '../style/dashboard.css'
 import drawerCss from '../style/drawer'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import classNames from "classnames";
-import Subscription from './Subscription'
+import SubscriptionCard from './SubscriptionCard'
 import ErrorCount from './ErrorCount'
 import ProjectCount from './ProjectCount'
 
@@ -44,7 +44,7 @@ function Home({ isAuth }) {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-4" style={{ marginBottom: "3%" }} >
-                                <Subscription />
+                                <SubscriptionCard />
                             </div>
                             <div className="col-md-4" style={{ marginBottom: "3%" }} >
                                 <ErrorCount />
