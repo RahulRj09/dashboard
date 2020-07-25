@@ -1,5 +1,5 @@
 export { login } from './Login/loginActions'
-export { getProjects } from './Project/projectActions'
+export { getProjects, getProjectCount } from './Project/projectActions'
 export { getUsers, addUser, deleteUser } from './Users/userActions'
 export { resetPassword } from './Reset_password/resetPasswordActions'
 export { getProfile } from './Profile/profileActions'

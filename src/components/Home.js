@@ -6,8 +6,9 @@ import '../style/dashboard.css'
 import drawerCss from '../style/drawer'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import classNames from "classnames";
-import { Subscription } from './Subscription'
-import { ErrorCount } from './ErrorCount'
+import Subscription from './Subscription'
+import ErrorCount from './ErrorCount'
+import ProjectCount from './ProjectCount'
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 
@@ -47,6 +48,9 @@ function Home({ isAuth }) {
                             </div>
                             <div className="col-md-4" style={{ marginBottom: "3%" }} >
                                 <ErrorCount />
+                            </div>
+                            <div className="col-md-4" style={{ marginBottom: "3%" }} >
+                                <ProjectCount />
                             </div>
                         </div>
                     </div>

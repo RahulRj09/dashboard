@@ -1,4 +1,3 @@
-import React from 'react'
 const drawerWidth = 220;
 function headerStyle(theme) {
     let headerStyle = {

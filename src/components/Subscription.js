@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export const Subscription = () => {
+const Subscription = () => {
 
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
