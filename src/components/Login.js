@@ -12,7 +12,6 @@ import * as Yup from 'yup'
 import TextError from './TextError'
 
 function Login({ isAuth, isAuthCall }) {
-    console.log(isAuth)
     let history = useHistory()
     const initialValue = {
         username: '',
@@ -26,7 +25,6 @@ function Login({ isAuth, isAuthCall }) {
     })
     const onSubmit = async values => {
         let data = await isAuthCall(values)
-        console.log(data)
         if (data.type === "LOGIN_SUCCESS") {
             localStorage.setItem("isAuth", true)
             history.push('/home')

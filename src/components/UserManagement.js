@@ -41,7 +41,6 @@ function UserManagement(props) {
 
     useEffect(() => {
         setState({ ...state, data: users.users })
-        console.log(users["users"].length)
     }, [users])
 
     let loginStatus = localStorage.getItem("isAuth")

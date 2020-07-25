@@ -107,7 +107,6 @@ const addUser = (userDetails) => {
 }
 
 const deleteUser = (id) => {
-    console.log(id)
     return (dispatch) => {
         let url = "https://auth3.mobillor.com/ipaasusers/" + id
         dispatch(deleteUserRequest())

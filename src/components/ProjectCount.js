@@ -17,8 +17,6 @@ function ProjectCount({ projectCount, getProjectCount }) {
     useEffect(() => {
         getProjectCount()
     }, [getProjectCount])
-
-    console.log(projectCount)
     return (
         <div>
             <Card className={classes.root}>

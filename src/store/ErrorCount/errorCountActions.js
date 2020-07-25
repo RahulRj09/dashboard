@@ -23,13 +23,13 @@ const errorCountFaliure = (error) => {
 
 const getErrorCount = () => {
     return (dispatch) => {
-
         dispatch(errorCountRequest())
-        let url = ""
-        return axios.get(url).then(response => {
-            return dispatch(errorCountSuccess(response.data))
+        let url = "http://13.71.2.248:8000/projects/logs"
+        axios.get(url).then(response => {
+            console.log(response.data)
+            dispatch(errorCountSuccess(response.data))
         }).catch(err => {
-            return dispatch(errorCountFaliure(err.message))
+            dispatch(errorCountFaliure(err.message))
         })
     }
 }
