@@ -24,9 +24,9 @@ const subscriptionFaliure = (error) => {
 const getSubscriptionDetails = () => {
     return (dispatch) => {
         dispatch(subscriptionRequest())
-        let url = ""
-        axios.post(url).then(response => {
-            dispatch(subscriptionSuccess(response))
+        let url = "http://104.211.200.240:1340/licenses/5e6b75bd377d20b20cc3e35e"
+        axios.get(url).then(response => {
+            dispatch(subscriptionSuccess(response.data))
         }).catch(err => {
             dispatch(subscriptionFaliure(err.message))
         })

@@ -2,7 +2,7 @@ import { SUBSCRIPTION_REQUEST, SUBSCRIPTION_SUCCESS, SUBSCRIPTION_FAILURE } from
 
 const initialState = {
     loading: false,
-    subscription: {},
+    subscription: [],
     error: ""
 }
 
@@ -22,7 +22,7 @@ const subscriptionReducer = (state = initialState, action) => {
         case SUBSCRIPTION_FAILURE:
             return {
                 loading: false,
-                subscription: {},
+                subscription: [],
                 error: action.payload
             }
         default:

@@ -15,6 +15,12 @@ import TextError from './TextError'
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 const Subscription = () => {
+    const options = [
+        { key: 'Select an option', value: '' },
+        { key: 'option 1', value: 'option 1' },
+        { key: 'option 2', value: 'option 2' },
+        { key: 'option 3', value: 'option 3' }
+    ]
     const classes = useStyles();
     const theme = useTheme();
     const [time, setTime] = useState(Date.now());
@@ -52,7 +58,7 @@ const Subscription = () => {
 
                                             <div className="box-body">
                                                 <br></br>
-                                                <div className="col-sm-6">
+                                                <div className="col-sm-12   ">
                                                     <div className="progress">
                                                         <div className="progress-bar bg-success" role="progressbar" style={{ width: "45%" }} aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">25%</div>
                                                         <div className="progress-bar bg-warning" role="progressbar" style={{ width: "70%" }} aria-valuenow="70" aria-valuemin="45" aria-valuemax="100"></div>
@@ -105,12 +111,26 @@ const Subscription = () => {
                                                                 formik => {
                                                                     return <Form>
                                                                         <div className="form-group">
-                                                                            <br/>
+                                                                            <br />
                                                                             <label htmlFor="reason">Reason</label>
                                                                             <Field type="text" name="reason" className="form-control" />
                                                                             <ErrorMessage name="reason" component={TextError} />
                                                                         </div>
-
+                                                                        <div className="form-group">
+                                                                            <label htmlFor="keyType">keyType</label>
+                                                                            <Field as='select' id="keytype" name="keytype" className="form-control"  >
+                                                                                {
+                                                                                    options.map(option => {
+                                                                                        return (
+                                                                                            <option key={option.key} value={option.value}>
+                                                                                                {option.key}
+                                                                                            </option>
+                                                                                        )
+                                                                                    })
+                                                                                }
+                                                                            </Field>
+                                                                            <ErrorMessage name="keytype" component={TextError} />
+                                                                        </div>
                                                                         <button type='submit' className="btn btn-success" disabled={!formik.isValid} style={{ marginBottom: '15px' }}>Submit</button>
                                                                     </Form>
                                                                 }
