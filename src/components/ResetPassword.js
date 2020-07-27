@@ -12,6 +12,8 @@ import '../style/form1.css'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import TextError from './TextError'
+import PasswordStrengthMeter from './PasswordStrengthMeter'
+
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 
@@ -62,6 +64,11 @@ function ResetPassword(props) {
             clearInterval(interval);
         };
     }, [])
+
+    const getPasswordColor = (password) => {
+        console.log(password)
+    }
+
     if (loginStatus === "false") {
         return <Redirect to='/' />
     }
@@ -95,6 +102,7 @@ function ResetPassword(props) {
                                                                 <div className="form-group">
                                                                     <label htmlFor="newpassword">New Password</label>
                                                                     <Field type="password" name="newpassword" className="form-control" placeholder="Min-lenght-8" />
+                                                                    <PasswordStrengthMeter password={formik.values.newpassword} />
                                                                     <ErrorMessage name="newpassword" component={TextError} />
                                                                 </div>
                                                                 <div className="form-group">
