@@ -13,6 +13,7 @@ import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
 import ErrorLog from './components/ErrorLog';
 import Subscription from './components/Subscription';
+import Backup from './components/Backup';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route exact path="/reset_password" component={ResetPassword} />
           <Route exact path="/error_log" component={ErrorLog} />
           <Route exact path="/subscription" component={Subscription} />
+          <Route exact path="/backup" component={Backup} />
         </Switch>
       </Router>
     </Provider>

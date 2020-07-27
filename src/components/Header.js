@@ -20,6 +20,7 @@ import headerStyle from '../style/headerStyle'
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import ErrorIcon from '@material-ui/icons/Error';
 import CardMembershipIcon from '@material-ui/icons/CardMembership';
+import BackupIcon from '@material-ui/icons/Backup';
 
 const styles = theme => (headerStyle(theme));
 
@@ -178,6 +179,12 @@ class Header extends Component {
                                     <NavLink to="/subscription"><CardMembershipIcon /></NavLink>
                                 </ListItemIcon>
                                 <ListItemText><NavLink to="/subscription">Subscription</NavLink></ListItemText>
+                            </ListItem>
+                            <ListItem button key="Backup">
+                                <ListItemIcon>
+                                    <NavLink to="/backup"><BackupIcon /></NavLink>
+                                </ListItemIcon>
+                                <ListItemText><NavLink to="/backup">Back-up</NavLink></ListItemText>
                             </ListItem>
 
                         </List>
