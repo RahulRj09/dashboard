@@ -11,6 +11,7 @@ import subscriptionReducer from './Subscription/subscriptionReducer'
 import errorCountReducer from './ErrorCount/errorCountReducer'
 import projectCountReducer from './Project/projectCountReducer'
 import subscriptionKeyReducer from './Subscription/subscriptionKeyReducer'
+import backupReducer from './Backup/backupReducer'
 
 const rootReducer = combineReducers({
     login: loginReducer,
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
     subscriptionDetails: subscriptionReducer,
     errorCount: errorCountReducer,
     projectCount: projectCountReducer,
-    subscriptionKey: subscriptionKeyReducer
+    subscriptionKey: subscriptionKeyReducer,
+    backupData: backupReducer
 })
 
 export default rootReducer
