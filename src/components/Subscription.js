@@ -76,7 +76,7 @@ const Subscription = ({ subscriptionDetails, getSubscriptionDetails }) => {
 
                                             <div className="box-body">
                                                 <br></br>
-                                                <div className="col-sm-12   ">
+                                                <div className="col-sm-12">
                                                     {
                                                         getProgressBar(development["rMonthsInPercents"])
 
@@ -87,9 +87,9 @@ const Subscription = ({ subscriptionDetails, getSubscriptionDetails }) => {
                                                 <hr style={{ margin: "5px 0 5px 0" }} />
 
 
-                                                <div className="col-sm-5 col-xs-6 tital" >Subscription Key</div><div className="col-sm-7 col-xs-6 ">{development.key}</div>
+                                                {/* <div className="col-sm-5 col-xs-6 tital" >Subscription Key</div><div className="col-sm-7 col-xs-6 ">{development.key}</div>
                                                 <div className="clearfix"></div>
-                                                <div className="bot-border"></div>
+                                                <div className="bot-border"></div> */}
 
                                                 <div className="col-sm-5 col-xs-6 tital " >Start Date :</div><div className="col-sm-7">{development.startDate}</div>
                                                 <div className="clearfix"></div>

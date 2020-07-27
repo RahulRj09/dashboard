@@ -15,6 +15,8 @@ import TextError from './TextError'
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 
+let confirmPasswordMessage = ""
+
 function ResetPassword(props) {
     const classes = useStyles();
     const theme = useTheme();
@@ -23,22 +25,36 @@ function ResetPassword(props) {
     let loginStatus = localStorage.getItem("isAuth")
     let userDetails = JSON.parse(localStorage.getItem("loginDetails")).userData.data
 
+
     const initialValue = {
         username: userDetails.username,
         email: userDetails.email,
         oldpassword: "",
         newpassword: "",
+        confirmpassword: "",
         clientId: userDetails.clientId
     }
 
     const validationSchema = Yup.object({
         oldpassword: Yup.string().required("Required!"),
-        newpassword: Yup.string().required("Required!")
+        newpassword: Yup.string().required("Required!").matches(
+            /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+            "Password must be min 8 characters, and have 1 Special Character, 1 Uppercase, 1 Number and 1 Lowercase"
+        ),
+        confirmpassword: Yup.string().required("Required!")
 
     })
     const onSubmit = async values => {
-        props.resetPassword(values)
+        if (values.newpassword !== values.confirmpassword) {
+            confirmPasswordMessage = "The passwords doesn't match"
+        } else {
+            confirmPasswordMessage = ""
+            props.resetPassword(values)
+        }
+
     }
+
+    console.log(confirmPasswordMessage)
 
     useEffect(() => {
         const interval = setInterval(() => setTime(Date.now()), 1000);
@@ -78,30 +94,46 @@ function ResetPassword(props) {
                                                                 </div>
                                                                 <div className="form-group">
                                                                     <label htmlFor="newpassword">New Password</label>
-                                                                    <Field type="password" name="newpassword" className="form-control" />
+                                                                    <Field type="password" name="newpassword" className="form-control" placeholder="Min-lenght-8" />
                                                                     <ErrorMessage name="newpassword" component={TextError} />
+                                                                </div>
+                                                                <div className="form-group">
+                                                                    <label htmlfor="ConfirmPassword">Confirm Password</label>
+                                                                    <Field name="confirmpassword" className="form-control" placeholder="Min-lenght-8" type="password" />
+                                                                    <ErrorMessage name="confirmpassword" component={TextError} />
                                                                 </div>
                                                                 {
 
                                                                     props.resetPasswordData.error ? <div className="alert alert-danger alert-dismissible fade show" role="alert">
-                                                                        <span class="help-block">Invalid old password</span> 
-                                                                            <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                                                                        <span class="help-block">Invalid old password</span>
+                                                                        <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
                                                                     </div> : ""
                                                                 }
                                                                 {
 
+
+                                                                    confirmPasswordMessage ? <div className="alert alert-danger alert-dismissible fade show" role="alert">
+                                                                        <span class="help-block">{confirmPasswordMessage}</span>
+                                                                        <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div> : ""
+
+                                                                }
+                                                                {
+
                                                                     props.resetPasswordData.succeeded ? <div className="alert alert-success alert-dismissible fade show" role="alert">
-                                                                       <span class="help-block">Password reset successfully</span> 
-                                                                            <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                                                                        <span class="help-block">Password reset successfully</span>
+                                                                        <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
                                                                     </div> : ""
                                                                 }
                                                                 <div style={{ display: "flex" }}>
                                                                     <button type="button" className="btn btn-light"><Link to="/home">Back</Link></button>
-                                                                    <button type="submit" className="btn btn-success">Reset Password</button>
+                                                                    <button type="submit" className="btn btn-success" disabled={!formik.isValid} >Reset Password</button>
                                                                 </div>
                                                             </Form>
                                                         }

@@ -33,4 +33,11 @@ const getSubscriptionDetails = () => {
     }
 }
 
+const reGenerateSubscriptionkey = (data) => {
+    return (dispatch) => {
+        dispatch()
+        let url = "http://104.211.200.240:1340/regenerate-dev-key"
+    }
+}
+
 export { getSubscriptionDetails } 
