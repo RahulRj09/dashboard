@@ -17,16 +17,11 @@ import getProgressBar from '../utils/ProgressBar'
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
@@ -98,8 +93,6 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
         reGenerateSubscriptionkey(values)
     }
 
-    console.log(subscriptionKey)
-
     const getReGenerateKeyForm = () => {
         return (
             <Formik initialValues={initialValue} validationSchema={validationSchema} onSubmit={onSubmit}>
@@ -126,6 +119,22 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                 </Field>
                                 <ErrorMessage name="keytype" component={TextError} />
                             </div>
+                            {
+                                subscriptionKey.loading ? <div className="alert alert-success alert-dismissible fade show" role="alert">
+                                    <span className="help-block">Subscription key re-generate successfully</span>
+                                    <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div> : ""
+                            }
+                            {
+                                subscriptionKey.error ? <div className="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <span className="help-block">hello</span>
+                                    <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div> : ""
+                            }
                             <button type='submit' className="btn btn-success" disabled={!formik.isValid} style={{ marginBottom: '15px' }}>Submit</button>
                         </Form>
                     }
