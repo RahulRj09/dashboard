@@ -55,19 +55,12 @@ function ResetPassword(props) {
         }
 
     }
-
-    console.log(confirmPasswordMessage)
-
     useEffect(() => {
         const interval = setInterval(() => setTime(Date.now()), 1000);
         return () => {
             clearInterval(interval);
         };
     }, [])
-
-    const getPasswordColor = (password) => {
-        console.log(password)
-    }
 
     if (loginStatus === "false") {
         return <Redirect to='/' />

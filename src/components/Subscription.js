@@ -11,19 +11,46 @@ import '../style/form.css'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import TextError from './TextError'
-import { getSubscriptionDetails } from '../store'
+import { getSubscriptionDetails, reGenerateSubscriptionkey } from '../store'
 import { getTheExpDate, dateFormat } from '../utils/SubscriptionDate'
 import getProgressBar from '../utils/ProgressBar'
+import clsx from 'clsx';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import { red } from '@material-ui/core/colors';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
-const Subscription = ({ subscriptionDetails, getSubscriptionDetails }) => {
+const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDetails, reGenerateSubscriptionkey }) => {
+    const classes = useStyles();
+    const [expanded1, setExpanded1] = React.useState(false);
+    const [expanded2, setExpanded2] = React.useState(false);
+
+    const handleExpandClick1 = () => {
+        setExpanded1(!expanded1);
+    };
+
+    const handleExpandClick2 = () => {
+        setExpanded2(!expanded2);
+    };
+
+
     const options = [
         { key: 'Select an option', value: '' },
-        { key: 'option 1', value: 'option 1' },
-        { key: 'option 2', value: 'option 2' },
-        { key: 'option 3', value: 'option 3' }
+        { key: 'development', value: 'development' },
+        { key: 'production', value: 'production' },
+        { key: 'test', value: 'test' }
     ]
-    const classes = useStyles();
     const theme = useTheme();
     const [time, setTime] = useState(Date.now());
     let drawer = JSON.parse(localStorage.getItem("open"))
@@ -39,6 +66,8 @@ const Subscription = ({ subscriptionDetails, getSubscriptionDetails }) => {
     }, [getSubscriptionDetails])
 
     let development = {}
+    let production = {}
+    let testEnvironment = {}
     let subscriptionInfo = subscriptionDetails.subscription
     subscriptionInfo.map(temp => {
         if (temp.type === "development") {
@@ -50,7 +79,60 @@ const Subscription = ({ subscriptionDetails, getSubscriptionDetails }) => {
             development["rMonthsInPercents"] = getTheExpDate(temp.validTill)
         }
     })
-  
+
+    let userDetails = JSON.parse(localStorage.getItem("loginDetails")).userData.data
+    const initialValue = {
+        reason: "",
+        keytype: "",
+        name: userDetails.name,
+        email: userDetails.email,
+        orderId: "5e6b75bd377d20b20cc3e35e",
+    }
+
+    const validationSchema = Yup.object({
+        reason: Yup.string().required("Required!"),
+        keytype: Yup.string().required("Required!")
+
+    })
+    const onSubmit = values => {
+        reGenerateSubscriptionkey(values)
+    }
+
+    console.log(subscriptionKey)
+
+    const getReGenerateKeyForm = () => {
+        return (
+            <Formik initialValues={initialValue} validationSchema={validationSchema} onSubmit={onSubmit}>
+                {
+                    formik => {
+                        return <Form>
+                            <div className="form-group">
+                                <label htmlFor="reason">Reason</label>
+                                <Field type="text" name="reason" className="form-control" placeholder="Reason" />
+                                <ErrorMessage name="reason" component={TextError} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="keyType">keyType</label>
+                                <Field as='select' id="keytype" name="keytype" className="form-control"  >
+                                    {
+                                        options.map(option => {
+                                            return (
+                                                <option key={option.key} value={option.value}>
+                                                    {option.key}
+                                                </option>
+                                            )
+                                        })
+                                    }
+                                </Field>
+                                <ErrorMessage name="keytype" component={TextError} />
+                            </div>
+                            <button type='submit' className="btn btn-success" disabled={!formik.isValid} style={{ marginBottom: '15px' }}>Submit</button>
+                        </Form>
+                    }
+                }
+            </Formik>)
+    }
+
     let loginStatus = localStorage.getItem("isAuth")
     if (loginStatus === "false") {
         return <Redirect to='/' />
@@ -64,113 +146,160 @@ const Subscription = ({ subscriptionDetails, getSubscriptionDetails }) => {
                     className={classNames(classes.content, {
                         [classes.contentShift]: drawer.open ? false : true,
                     })}>
-                    <div classNam="container">
+                    <div className="container">
                         <div className="row">
-                            <div className="col-md-6">
+                            {
+                                development.hasOwnProperty("startDate") ? <div className="col-md-4" style={{ marginBottom: "3%" }} >
+                                    <Card className={classes.root}>
+                                        <CardHeader
+                                            avatar={
+                                                <Avatar aria-label="recipe" className={classes.avatar}>
+                                                    SD
+          </Avatar>
+                                            }
+                                            action={
+                                                <IconButton aria-label="settings">
+                                                    <MoreVertIcon />
+                                                </IconButton>
+                                            }
+                                            title="Development key details"
+                                        />
 
-                                <div className="card ">
-                                    <div className="card-header">  <h4 className="textcolor">Subscription details for development </h4></div>
-                                    <div className="card-block">
+                                        <CardContent>
+                                            {
+                                                getProgressBar(development["rMonthsInPercents"])
+                                            }
+                                            <br />
+                                            <p>Start Date : {development.startDate}</p>
+                                            <p>Expiry Date : {development.validTill}</p>
+                                            <p>UUID : {development.uuid}</p>
+                                            <p>IpaasId : {development.ipaasId}</p>
+                                        </CardContent>
+                                        <CardActions disableSpacing>
+                                            <h5>Re-Generate subscription key </h5>
+                                            <IconButton
+                                                className={clsx(classes.expand, {
+                                                    [classes.expandOpen]: expanded1,
+                                                })}
+                                                onClick={handleExpandClick1}
+                                                aria-expanded={expanded1}
+                                                aria-label="show more"
+                                            >
+                                                <ExpandMoreIcon />
+                                            </IconButton>
+                                        </CardActions>
+                                        <Collapse in={expanded1} timeout="auto" unmountOnExit>
+                                            <CardContent>
+                                                {
+                                                    getReGenerateKeyForm()
+                                                }
+                                            </CardContent>
+                                        </Collapse>
+                                    </Card>
+                                </div> : ""
+                            }
+                            {
+                                production.hasOwnProperty("startDate") ? <div className="col-md-4" style={{ marginBottom: "3%" }} >
+                                    <Card className={classes.root}>
+                                        <CardHeader
+                                            avatar={
+                                                <Avatar aria-label="recipe" className={classes.avatar}>
+                                                    SD
+      </Avatar>
+                                            }
+                                            action={
+                                                <IconButton aria-label="settings">
+                                                    <MoreVertIcon />
+                                                </IconButton>
+                                            }
+                                            title="Production key details"
+                                        />
 
-                                        <div className="box box-info">
+                                        <CardContent>
+                                            {
+                                                getProgressBar(production["rMonthsInPercents"])
+                                            }
+                                            <br />
+                                            <p>Start Date : {production.startDate}</p>
+                                            <p>Expiry Date : {production.validTill}</p>
+                                            <p>UUID : {production.uuid}</p>
+                                            <p>IpaasId : {production.ipaasId}</p>
+                                        </CardContent>
+                                        <CardActions disableSpacing>
+                                            <h5>Generate subscription key</h5>
+                                            <IconButton
+                                                className={clsx(classes.expand, {
+                                                    [classes.expandOpen]: expanded2,
+                                                })}
+                                                onClick={handleExpandClick2}
+                                                aria-expanded={expanded2}
+                                                aria-label="show more"
+                                            >
+                                                <ExpandMoreIcon />
+                                            </IconButton>
+                                        </CardActions>
+                                        <Collapse in={expanded2} timeout="auto" unmountOnExit>
+                                            <CardContent>
+                                                {
+                                                    getReGenerateKeyForm()
+                                                }
+                                            </CardContent>
+                                        </Collapse>
+                                    </Card>
+                                </div> : ""
+                            }
+                            {
+                                testEnvironment.hasOwnProperty("startDate") ? <div className="col-md-4" style={{ marginBottom: "3%" }} >
+                                    <Card className={classes.root}>
+                                        <CardHeader
+                                            avatar={
+                                                <Avatar aria-label="recipe" className={classes.avatar}>
+                                                    SD
+          </Avatar>
+                                            }
+                                            action={
+                                                <IconButton aria-label="settings">
+                                                    <MoreVertIcon />
+                                                </IconButton>
+                                            }
+                                            title="Development key details"
+                                        />
 
-                                            <div className="box-body">
-                                                <br></br>
-                                                <div className="col-sm-12">
-                                                    {
-                                                        getProgressBar(development["rMonthsInPercents"])
+                                        <CardContent>
+                                            {
+                                                getProgressBar(development["rMonthsInPercents"])
+                                            }
+                                            <br />
+                                            <p>Start Date : {development.startDate}</p>
+                                            <p>Expiry Date : {development.validTill}</p>
+                                            <p>UUID : {development.uuid}</p>
+                                            <p>IpaasId : {development.ipaasId}</p>
+                                        </CardContent>
+                                        <CardActions disableSpacing>
+                                            <h5>Re-Generate subscription key </h5>
+                                            <IconButton
+                                                className={clsx(classes.expand, {
+                                                    [classes.expandOpen]: expanded1,
+                                                })}
+                                                onClick={handleExpandClick1}
+                                                aria-expanded={expanded1}
+                                                aria-label="show more"
+                                            >
+                                                <ExpandMoreIcon />
+                                            </IconButton>
+                                        </CardActions>
+                                        <Collapse in={expanded1} timeout="auto" unmountOnExit>
+                                            <CardContent>
+                                                {
+                                                    getReGenerateKeyForm()
+                                                }
+                                            </CardContent>
+                                        </Collapse>
+                                    </Card>
+                                </div> : ""
+                            }
 
-                                                    }
-                                                </div>
-                                                <br />
-                                                <div className="clearfix"></div>
-                                                <hr style={{ margin: "5px 0 5px 0" }} />
-
-
-                                                {/* <div className="col-sm-5 col-xs-6 tital" >Subscription Key</div><div className="col-sm-7 col-xs-6 ">{development.key}</div>
-                                                <div className="clearfix"></div>
-                                                <div className="bot-border"></div> */}
-
-                                                <div className="col-sm-5 col-xs-6 tital " >Start Date :</div><div className="col-sm-7">{development.startDate}</div>
-                                                <div className="clearfix"></div>
-                                                <div className="bot-border"></div>
-
-                                                <div className="col-sm-5 col-xs-6 tital " >Expiry Date</div><div className="col-sm-7">{development.validTill}</div>
-                                                <div className="clearfix"></div>
-                                                <div className="bot-border"></div>
-
-                                                <div className="col-sm-5 col-xs-6 tital  " >UUID</div><div className="col-sm-7">{development.uuid}</div>
-
-                                                <div className="clearfix"></div>
-                                                <div className="bot-border"></div>
-                                                <div className="col-sm-5 col-xs-6 tital  " >Ipaas Id</div><div className="col-sm-7">{development.ipaasId}</div>
-
-                                                <div className="clearfix"></div>
-                                                <div className="bot-border"></div>
-
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-
-                                <div className="card ">
-                                    <div className="card-header">  <h4 className="textcolor">Re-generate subscription key</h4></div>
-                                    <div className="card-block">
-
-                                        <div className="box box-info">
-
-                                            <div className="box-body">
-                                                <div id="cover-caption">
-                                                    <div className="container-fluid">
-                                                        <Formik>
-                                                            {
-                                                                formik => {
-                                                                    return <Form>
-                                                                        <div className="form-group">
-                                                                            <br />
-                                                                            <label htmlFor="reason">Reason</label>
-                                                                            <Field type="text" name="reason" className="form-control" />
-                                                                            <ErrorMessage name="reason" component={TextError} />
-                                                                        </div>
-                                                                        <div className="form-group">
-                                                                            <label htmlFor="keyType">keyType</label>
-                                                                            <Field as='select' id="keytype" name="keytype" className="form-control"  >
-                                                                                {
-                                                                                    options.map(option => {
-                                                                                        return (
-                                                                                            <option key={option.key} value={option.value}>
-                                                                                                {option.key}
-                                                                                            </option>
-                                                                                        )
-                                                                                    })
-                                                                                }
-                                                                            </Field>
-                                                                            <ErrorMessage name="keytype" component={TextError} />
-                                                                        </div>
-                                                                        <button type='submit' className="btn btn-success" disabled={!formik.isValid} style={{ marginBottom: '15px' }}>Submit</button>
-                                                                    </Form>
-                                                                }
-                                                            }
-                                                        </Formik>
-
-                                                    </div>
-
-                                                </div>
-                                                <div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-
                     </div>
                 </main>
             </section>
@@ -180,13 +309,15 @@ const Subscription = ({ subscriptionDetails, getSubscriptionDetails }) => {
 
 const mapStateToProps = (state) => {
     return {
-        subscriptionDetails: state.subscriptionDetails
+        subscriptionDetails: state.subscriptionDetails,
+        subscriptionKey: state.subscriptionKey
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getSubscriptionDetails: () => dispatch(getSubscriptionDetails())
+        getSubscriptionDetails: () => dispatch(getSubscriptionDetails()),
+        reGenerateSubscriptionkey: (data) => dispatch(reGenerateSubscriptionkey(data))
     }
 }
 

@@ -9,9 +9,7 @@ const getTheExpDate = (date) => {
     let rMonths = (expMonth - curruntMonth) + ((expYear - curruntYear) * 12);
 
     let rMonthsInPercents = (rMonths * 100 / 12);
-    console.log(rMonthsInPercents)
     let toReturn = rMonthsInPercents.toString().split('.')[0]
-    console.log(toReturn)
     return toReturn;
 }
 

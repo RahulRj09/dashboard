@@ -1,4 +1,11 @@
-import { SUBSCRIPTION_REQUEST, SUBSCRIPTION_SUCCESS, SUBSCRIPTION_FAILURE } from './subscriptionTypes'
+import {
+    SUBSCRIPTION_REQUEST,
+    SUBSCRIPTION_SUCCESS,
+    SUBSCRIPTION_FAILURE,
+    RE_GENERATE_SUBSCRIPTION_KEY_FAILURE,
+    RE_GENERATE_SUBSCRIPTION_KEY_REQUEST,
+    RE_GENERATE_SUBSCRIPTION_KEY_SUCCESS
+} from './subscriptionTypes'
 import axios from 'axios';
 
 const subscriptionRequest = () => {
@@ -21,6 +28,28 @@ const subscriptionFaliure = (error) => {
     }
 }
 
+const subscriptionKeyRequest = () => {
+    return {
+        type: RE_GENERATE_SUBSCRIPTION_KEY_REQUEST
+    }
+}
+
+const subscriptionKeySuccess = (payload) => {
+    return {
+        type: RE_GENERATE_SUBSCRIPTION_KEY_SUCCESS,
+        payload: payload
+    }
+}
+
+const subscriptionKeyFaliure = (error) => {
+    return {
+        type: RE_GENERATE_SUBSCRIPTION_KEY_FAILURE,
+        payload: error
+    }
+}
+
+
+
 const getSubscriptionDetails = () => {
     return (dispatch) => {
         dispatch(subscriptionRequest())
@@ -35,9 +64,23 @@ const getSubscriptionDetails = () => {
 
 const reGenerateSubscriptionkey = (data) => {
     return (dispatch) => {
-        dispatch()
-        let url = "http://104.211.200.240:1340/regenerate-dev-key"
+        dispatch(subscriptionKeyRequest())
+        let payload = {
+            name: data.name,
+            email: data.email,
+            orderId: data.orderId
+        }
+        let url = ""
+        if (data.keytype === "development") {
+            url = "http://104.211.200.240:1340/regenerate-dev-key"
+        }
+        axios.post(url, payload).then(response => {
+            dispatch(subscriptionKeySuccess(response.data))
+        }).catch(err => {
+            dispatch(subscriptionKeyFaliure(err.message))
+        })
+
     }
 }
 
-export { getSubscriptionDetails } 
+export { getSubscriptionDetails, reGenerateSubscriptionkey } 

@@ -23,8 +23,6 @@ const ErrorCount = ({ errorCount, getErrorCount }) => {
         getErrorCount()
     }, [getErrorCount])
 
-    console.log(errorCount)
-
     const classes = useStyles();
     return (
         <div>

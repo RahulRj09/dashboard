@@ -10,6 +10,7 @@ import deleteUserReducer from './Users/deleteUserReducer'
 import subscriptionReducer from './Subscription/subscriptionReducer'
 import errorCountReducer from './ErrorCount/errorCountReducer'
 import projectCountReducer from './Project/projectCountReducer'
+import subscriptionKeyReducer from './Subscription/subscriptionKeyReducer'
 
 const rootReducer = combineReducers({
     login: loginReducer,
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
     deleteUser: deleteUserReducer,
     subscriptionDetails: subscriptionReducer,
     errorCount: errorCountReducer,
-    projectCount: projectCountReducer
+    projectCount: projectCountReducer,
+    subscriptionKey: subscriptionKeyReducer
 })
 
 export default rootReducer
