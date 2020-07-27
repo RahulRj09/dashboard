@@ -12,6 +12,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import TextError from './TextError'
 import { getSubscriptionDetails } from '../store'
+import { getTheExpDate, dateFormat } from '../utils/SubscriptionDate'
+import getProgressBar from '../utils/ProgressBar'
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 const Subscription = ({ subscriptionDetails, getSubscriptionDetails }) => {
@@ -32,31 +34,6 @@ const Subscription = ({ subscriptionDetails, getSubscriptionDetails }) => {
         };
     }, [])
 
-    const getTheExpDate = (date) => {
-        let today = new Date();
-        let curruntMonth = today.getMonth() + 1
-        let curruntYear = today.getFullYear()
-        let expDate = date.split('-')
-        let expYear = expDate[0];
-        let expMonth = expDate[0 + 1];
-
-        let rMonths = (expMonth - curruntMonth) + ((expYear - curruntYear) * 12);
-
-        let rMonthsInPercents = (rMonths * 100 / 12);
-        console.log(rMonthsInPercents)
-        let toReturn = rMonthsInPercents.toString().split('.')[0]
-        console.log(toReturn)
-        return toReturn;
-    }
-
-    const filterForDates = (date) => {
-        if (date != undefined) {
-            let rawData = date.split('-');
-            let toReturn = rawData[2].split('T')[0] + '-' + rawData[1] + '-' + rawData[0]
-            return toReturn;
-
-        }
-    }
     useEffect(() => {
         getSubscriptionDetails()
     }, [getSubscriptionDetails])
@@ -65,31 +42,15 @@ const Subscription = ({ subscriptionDetails, getSubscriptionDetails }) => {
     let subscriptionInfo = subscriptionDetails.subscription
     subscriptionInfo.map(temp => {
         if (temp.type === "development") {
-            development["startDate"] = filterForDates(temp.startDate)
-            development["validTill"] = filterForDates(temp.validTill)
+            development["startDate"] = dateFormat(temp.startDate)
+            development["validTill"] = dateFormat(temp.validTill)
             development["ipaasId"] = temp.ipaasId
             development["key"] = temp.key
             development["uuid"] = temp.uuid
             development["rMonthsInPercents"] = getTheExpDate(temp.validTill)
         }
     })
-    const getProgressBar = (value) => {
-        let temp;
-        
-        if (value <= 30 && value > 0) {
-            temp = <div className="progress-bar bg-success" role="progressbar" style={{ width: "45%" }} aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">{value}%</div>
-        } if (value > 30 && value <= 70) {
-            temp = <div className="progress-bar bg-warning" role="progressbar" style={{ width: "70%" }} aria-valuenow="70" aria-valuemin="45" aria-valuemax="100">{value}%</div>
-        } if (value > 70) {
-            temp = <div className="progress-bar bg-danger" role="progressbar" style={{ width: "100%" }} aria-valuenow="100" aria-valuemin="70" aria-valuemax="100">{value}%</div>
-        } if (value < 0) {
-            temp = <div className="progress-bar bg-danger" role="progressbar" style={{ width: "100%" }} aria-valuenow="100" aria-valuemin="70" aria-valuemax="100">expired  </div>
-        }
-
-        return <div className="progress">{temp} </div>
-    }
-
-
+  
     let loginStatus = localStorage.getItem("isAuth")
     if (loginStatus === "false") {
         return <Redirect to='/' />
@@ -120,7 +81,6 @@ const Subscription = ({ subscriptionDetails, getSubscriptionDetails }) => {
                                                         getProgressBar(development["rMonthsInPercents"])
 
                                                     }
-                                                    <br></br>
                                                 </div>
                                                 <br />
                                                 <div className="clearfix"></div>
