@@ -6,7 +6,7 @@ import '../style/dashboard.css'
 import drawerCss from '../style/drawer'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import classNames from "classnames";
-import { getBackupData } from '../store'
+import { getBackupData, getProjects } from '../store'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import TextError from './TextError'
@@ -20,7 +20,7 @@ import '../style/date.css'
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 
-const Backup = ({ backupData, getBackupData }) => {
+const Backup = ({ backupData, getBackupData, projects, getProjects }) => {
     const classes = useStyles();
     const theme = useTheme();
     const [time, setTime] = useState(Date.now());
@@ -35,7 +35,21 @@ const Backup = ({ backupData, getBackupData }) => {
     }, [])
 
 
+    useEffect(() => {
+        getProjects()
+    }, [getProjects])
 
+
+    const options = [
+        { key: '', value: '' },
+    ]
+
+    let projectData = projects.projects
+
+    projectData.map(project => {
+        options.push({ key: project, value: project })
+    })
+    console.log(options)
 
     const initialValue = {
         projectname: "",
@@ -82,17 +96,27 @@ const Backup = ({ backupData, getBackupData }) => {
                                                             return <Form>
                                                                 <div className="form-group">
                                                                     <label htmlFor="projectname">Project Name</label>
-                                                                    <Field type="text" name="projectname" className="form-control" />
+                                                                    <Field as='select' id="projectname" name="projectname" className="form-control"  >
+                                                                        {
+                                                                            options.map(option => {
+                                                                                return (
+                                                                                    <option key={option.key} value={option.value}>
+                                                                                        {option.key}
+                                                                                    </option>
+                                                                                )
+                                                                            })
+                                                                        }
+                                                                    </Field>
                                                                     <ErrorMessage name="projectname" component={TextError} />
                                                                 </div>
                                                                 <div className="form-group">
                                                                     <label htmlFor="backupdate">Back-up Date</label>
-                                                                    <Field name="backupdate" type="date" className="form-control" >
+                                                                    <Field name="backupdate" type="date">
                                                                         {
                                                                             ({ form, field }) => {
                                                                                 const { setFieldValue } = form
                                                                                 const { value } = field
-                                                                                return <DateView name="backupdate" className="form-control"  {...field}
+                                                                                return <DateView id="backupdate" className="form-control demo" {...field}
                                                                                     selected={value} onChange={val => setFieldValue("backupdate", val)} />
                                                                             }
                                                                         }
@@ -145,14 +169,16 @@ const Backup = ({ backupData, getBackupData }) => {
 
 const mapStateToProps = (state) => {
     return {
-        backupData: state.backupData
+        backupData: state.backupData,
+        projects: state.projects
     }
 }
 
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getBackupData: (backupParameters) => dispatch(getBackupData(backupParameters))
+        getBackupData: (backupParameters) => dispatch(getBackupData(backupParameters)),
+        getProjects: () => dispatch(getProjects())
     }
 }
 
