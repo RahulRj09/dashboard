@@ -24,6 +24,8 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDetails, reGenerateSubscriptionkey }) => {
@@ -159,7 +161,10 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
 
     }
 
-
+    const [state, setState] = useState({ value: 'some\ntext', copied: false })
+    const onCopy = () => {
+        setState({ ...state, copied: true });
+    };
 
     let loginStatus = localStorage.getItem("isAuth")
     if (loginStatus === "false") {
@@ -203,6 +208,14 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                                     <span class="input-group-text" onClick={() => showSubscriptioKey()}>{showMeKey.operation}</span>
                                                 </div>
                                                 <input type="text" class="form-control" value={showMeKey.showMe ? development.key : "subscription key"} />
+                                                <div class="input-group-append" >
+                                                    <span class="input-group-text">
+                                                        <CopyToClipboard onCopy={onCopy} text={development.key}>
+                                                            <FileCopyIcon fontSize="small" color="disabled" />
+                                                        </CopyToClipboard>
+                                                    </span>
+
+                                                </div>
                                             </div>
                                             <p>Start Date : {development.startDate}</p>
                                             <p>Expiry Date : {development.validTill}</p>
@@ -254,6 +267,20 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                                 getProgressBar(production["rMonthsInPercents"])
                                             }
                                             <br />
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" onClick={() => showSubscriptioKey()}>{showMeKey.operation}</span>
+                                                </div>
+                                                <input type="text" class="form-control" value={showMeKey.showMe ? production.key : "subscription key"} />
+                                                <div class="input-group-append" >
+                                                    <span class="input-group-text">
+                                                        <CopyToClipboard onCopy={onCopy} text={production.key}>
+                                                            <FileCopyIcon fontSize="small" color="disabled" />
+                                                        </CopyToClipboard>
+                                                    </span>
+
+                                                </div>
+                                            </div>
                                             <p>Start Date : {production.startDate}</p>
                                             <p>Expiry Date : {production.validTill}</p>
                                             <p>UUID : {production.uuid}</p>
@@ -296,18 +323,32 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                                     <MoreVertIcon />
                                                 </IconButton>
                                             }
-                                            title="Development key details"
+                                            title="Test key details"
                                         />
 
                                         <CardContent>
                                             {
-                                                getProgressBar(development["rMonthsInPercents"])
+                                                getProgressBar(testEnvironment["rMonthsInPercents"])
                                             }
                                             <br />
-                                            <p>Start Date : {development.startDate}</p>
-                                            <p>Expiry Date : {development.validTill}</p>
-                                            <p>UUID : {development.uuid}</p>
-                                            <p>IpaasId : {development.ipaasId}</p>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" onClick={() => showSubscriptioKey()}>{showMeKey.operation}</span>
+                                                </div>
+                                                <input type="text" class="form-control" value={showMeKey.showMe ? testEnvironment.key : "subscription key"} />
+                                                <div class="input-group-append" >
+                                                    <span class="input-group-text">
+                                                        <CopyToClipboard onCopy={onCopy} text={testEnvironment.key}>
+                                                            <FileCopyIcon fontSize="small" color="disabled" />
+                                                        </CopyToClipboard>
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                            <p>Start Date : {testEnvironment.startDate}</p>
+                                            <p>Expiry Date : {testEnvironment.validTill}</p>
+                                            <p>UUID : {testEnvironment.uuid}</p>
+                                            <p>IpaasId : {testEnvironment.ipaasId}</p>
                                         </CardContent>
                                         <CardActions disableSpacing>
                                             <h5>Re-Generate subscription key </h5>
