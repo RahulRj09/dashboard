@@ -132,9 +132,9 @@ function ResetPassword(props) {
                                                                         </button>
                                                                     </div> : ""
                                                                 }
-                                                                <div style={{ display: "flex" }}>
+                                                                <div style={{ display: "flex", float: "right", display: "inline" }}>
                                                                     <button type="button" className="btn btn-light"><Link to="/home">Back</Link></button>
-                                                                    <button type="submit" className="btn btn-success" disabled={!formik.isValid} >Reset Password</button>
+                                                                    <button type="submit" className="btn btn-secondary" disabled={!formik.isValid} >Reset Password</button>
                                                                 </div>
                                                             </Form>
                                                         }

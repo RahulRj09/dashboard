@@ -16,6 +16,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import DownloadLink from "react-download-link";
 import GetAppIcon from '@material-ui/icons/GetApp';
+import '../style/date.css'
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 
@@ -73,7 +74,7 @@ const Backup = ({ backupData, getBackupData }) => {
                                 <div className="col-xl-5 col-lg-8 col-md-8 col-sm-12 col-xs-12 col mx-auto form-4">
                                     <div className="template" style={{ color: 'black' }}>
                                         <div className="card">
-                                            <h4 className="card-header">Backup</h4>
+                                            <h4 className="card-header">Back-up</h4>
                                             <div className="card-body">
                                                 <Formik initialValues={initialValue} validationSchema={validationSchema} onSubmit={onSubmit} >
                                                     {
@@ -85,21 +86,22 @@ const Backup = ({ backupData, getBackupData }) => {
                                                                     <ErrorMessage name="projectname" component={TextError} />
                                                                 </div>
                                                                 <div className="form-group">
-                                                                    <label htmlFor="backupdate">Back-up Date</label><br />
-                                                                    <Field name="backupdate" className="form-control">
+                                                                    <label htmlFor="backupdate">Back-up Date</label>
+                                                                    <Field name="backupdate" type="date" >
                                                                         {
                                                                             ({ form, field }) => {
                                                                                 const { setFieldValue } = form
                                                                                 const { value } = field
-                                                                                return <DateView className="form-control" id="backupdate" {...field}
+                                                                                return <DateView name="backupdate" className="demo" {...field}
                                                                                     selected={value} onChange={val => setFieldValue("backupdate", val)} />
                                                                             }
                                                                         }
                                                                     </Field>
                                                                     <ErrorMessage name="backupdate" component={TextError} />
                                                                 </div>
+                                                                <br />
                                                                 <div style={{ display: "flex", float: "right", "marginTop": "-8%" }}>
-                                                                    <button type="submit" className="btn btn-success" disabled={!formik.isValid} >Export</button>
+                                                                    <button type="submit" className="btn btn-secondary" disabled={!formik.isValid} >Export</button>
                                                                 </div>
                                                                 <br />
                                                                 {
@@ -108,14 +110,14 @@ const Backup = ({ backupData, getBackupData }) => {
                                                                             <label htmlFor="backupdata">Back-up data</label>
                                                                             <Field as="textarea" name="backupdata" className="form-control" value={tempData} />
                                                                         </div>
-                                                                        <div style={{ display: "flex", float: "right" }}>
+                                                                        <div style={{ display: "flex", float: "right", display: "inline" }}>
                                                                             <DownloadLink
                                                                                 label={<GetAppIcon color="disabled" fontSize="large" />}
                                                                                 filename={`${formik.values.projectname}.json`}
                                                                                 exportFile={() => tempData}
                                                                             />
                                                                             <CopyToClipboard onCopy={onCopy} text={tempData}>
-                                                                                <button ><FileCopyIcon fontSize="large" color="disabled" /></button>
+                                                                                <FileCopyIcon fontSize="large" color="disabled" />
                                                                             </CopyToClipboard>
                                                                         </div>
                                                                         {state.copied ? <span style={{ color: 'green' }}>Copied.</span> : null}
@@ -137,7 +139,7 @@ const Backup = ({ backupData, getBackupData }) => {
                     </div>
                 </main>
             </section>
-        </div>
+        </div >
     )
 }
 

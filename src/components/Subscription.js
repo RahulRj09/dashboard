@@ -135,7 +135,10 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                     </button>
                                 </div> : ""
                             }
-                            <button type='submit' className="btn btn-success" disabled={!formik.isValid} style={{ marginBottom: '15px' }}>Submit</button>
+                            <div style={{ display: "flex", float: "right", display: "inline" }}>
+                                <button type='submit' className="btn btn-secondary" disabled={!formik.isValid} style={{ marginBottom: '15px' }}>Generate</button>
+                            </div>
+
                         </Form>
                     }
                 }
