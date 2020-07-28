@@ -91,7 +91,7 @@ const Backup = ({ backupData, getBackupData }) => {
                                                                             ({ form, field }) => {
                                                                                 const { setFieldValue } = form
                                                                                 const { value } = field
-                                                                                return <DateView className="form-control" style={{ width: "150%" }} id="backupdate" {...field}
+                                                                                return <DateView className="form-control" id="backupdate" {...field}
                                                                                     selected={value} onChange={val => setFieldValue("backupdate", val)} />
                                                                             }
                                                                         }
@@ -102,23 +102,25 @@ const Backup = ({ backupData, getBackupData }) => {
                                                                     <button type="submit" className="btn btn-success" disabled={!formik.isValid} >Export</button>
                                                                 </div>
                                                                 <br />
-                                                                <div>
-                                                                    <div className="form-group">
-                                                                        <label htmlFor="backupdata">Back-up data</label>
-                                                                        <Field as="textarea" name="backupdata" className="form-control" value={tempData} />
-                                                                    </div>
-                                                                    <div style={{ display: "flex", float: "right" }}>
-                                                                        <DownloadLink
-                                                                            label={<GetAppIcon color="disabled" fontSize="large" />}
-                                                                            filename={`${formik.values.projectname}.json`}
-                                                                            exportFile={() => tempData}
-                                                                        />
-                                                                        <CopyToClipboard onCopy={onCopy} text={tempData}>
-                                                                            <button ><FileCopyIcon fontSize="large" color="disabled" /></button>
-                                                                        </CopyToClipboard>
-                                                                    </div>
-                                                                    {state.copied ? <span style={{ color: 'green' }}>Copied.</span> : null}
-                                                                </div>
+                                                                {
+                                                                    tempData.length && backupData.loading ? <div>
+                                                                        <div className="form-group">
+                                                                            <label htmlFor="backupdata">Back-up data</label>
+                                                                            <Field as="textarea" name="backupdata" className="form-control" value={tempData} />
+                                                                        </div>
+                                                                        <div style={{ display: "flex", float: "right" }}>
+                                                                            <DownloadLink
+                                                                                label={<GetAppIcon color="disabled" fontSize="large" />}
+                                                                                filename={`${formik.values.projectname}.json`}
+                                                                                exportFile={() => tempData}
+                                                                            />
+                                                                            <CopyToClipboard onCopy={onCopy} text={tempData}>
+                                                                                <button ><FileCopyIcon fontSize="large" color="disabled" /></button>
+                                                                            </CopyToClipboard>
+                                                                        </div>
+                                                                        {state.copied ? <span style={{ color: 'green' }}>Copied.</span> : null}
+                                                                    </div> : ""
+                                                                }
                                                             </Form>
                                                         }
                                                     }
