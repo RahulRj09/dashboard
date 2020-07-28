@@ -11,9 +11,6 @@ import { getSubscriptionDetails } from '../store'
 import { getTheExpDate, dateFormat } from '../utils/SubscriptionDate'
 import getProgressBar from '../utils/ProgressBar'
 
-let today = new Date();
-let date = today.toUTCString().slice(0, -4)
-
 
 const useStyles = makeStyles((theme) => dashboardCard(theme));
 
@@ -45,7 +42,6 @@ const SubscriptionCard = ({ subscriptionDetails, getSubscriptionDetails }) => {
           </Avatar>
                     }
                     title="Subscription"
-                    subheader={date}
                 />
                 <CardContent>
                     <Typography variant="body2" color="textSecondary" component="p">

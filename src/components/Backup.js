@@ -50,13 +50,12 @@ const Backup = ({ backupData, getBackupData }) => {
     const onSubmit = values => {
         getBackupData(values)
     }
-
-    let tempData = "Rahul"
     const [state, setState] = useState({ value: 'some\ntext', copied: false })
     const onCopy = () => {
         setState({ ...state, copied: true });
     };
 
+    let tempData = JSON.stringify(backupData.backupData)
     if (loginStatus === "false") {
         return <Redirect to='/' />
     }
@@ -116,7 +115,7 @@ const Backup = ({ backupData, getBackupData }) => {
                                                                         />
                                                                         <CopyToClipboard onCopy={onCopy} text={tempData}>
                                                                             <button ><FileCopyIcon fontSize="large" color="disabled" /></button>
-                                                                        </CopyToClipboard>    
+                                                                        </CopyToClipboard>
                                                                     </div>
                                                                     {state.copied ? <span style={{ color: 'green' }}>Copied.</span> : null}
                                                                 </div>

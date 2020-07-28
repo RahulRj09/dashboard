@@ -29,7 +29,6 @@ const getBackupData = (backupParameters) => {
         let url = `http://13.71.2.248:8000/projects/backup/${projectName}/${backupDate}`
         console.log(url)
         axios.get(url).then(response => {
-            console.log(response)
             dispatch(backupSuccess(response.data))
         }).catch(err => {
             dispatch(backupFaliure(err.message))
