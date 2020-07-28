@@ -145,6 +145,22 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
             </Formik>)
     }
 
+    let [showMeKey, setShowMeKey] = useState({
+        showMe: false,
+        operation: "show"
+    })
+
+    const showSubscriptioKey = () => {
+        if (showMeKey.showMe === false) {
+            setShowMeKey({ showMeKey, showMe: true, showMeKey, operation: "hide" })
+        } else {
+            setShowMeKey({ showMeKey, showMe: false, showMeKey, operation: "show" })
+        }
+
+    }
+
+
+
     let loginStatus = localStorage.getItem("isAuth")
     if (loginStatus === "false") {
         return <Redirect to='/' />
@@ -182,6 +198,12 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                                 getProgressBar(development["rMonthsInPercents"])
                                             }
                                             <br />
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" onClick={() => showSubscriptioKey()}>{showMeKey.operation}</span>
+                                                </div>
+                                                <input type="text" class="form-control" value={showMeKey.showMe ? development.key : "subscription key"} />
+                                            </div>
                                             <p>Start Date : {development.startDate}</p>
                                             <p>Expiry Date : {development.validTill}</p>
                                             <p>UUID : {development.uuid}</p>
