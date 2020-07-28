@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import Header from './Header'
@@ -12,6 +12,10 @@ import * as Yup from 'yup'
 import TextError from './TextError'
 import DateView from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import DownloadLink from "react-download-link";
+import GetAppIcon from '@material-ui/icons/GetApp';
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 
@@ -47,12 +51,18 @@ const Backup = ({ backupData, getBackupData }) => {
         getBackupData(values)
     }
 
+    let tempData = "Rahul"
+    const [state, setState] = useState({ value: 'some\ntext', copied: false })
+    const onCopy = () => {
+        setState({ ...state, copied: true });
+    };
+
     if (loginStatus === "false") {
         return <Redirect to='/' />
     }
     return (
         <div>
-            <section id="cover" className="min-vh-100" style={{ marginTop: '5%' }} >
+            <section id="cover" className="min-vh-100" style={{ marginTop: '1%' }} >
                 <Header />
                 <main
                     className={classNames(classes.content, {
@@ -89,8 +99,26 @@ const Backup = ({ backupData, getBackupData }) => {
                                                                     </Field>
                                                                     <ErrorMessage name="backupdate" component={TextError} />
                                                                 </div>
-                                                                <div style={{ display: "flex" }}>
+                                                                <div style={{ display: "flex", float: "right", "marginTop": "-8%" }}>
                                                                     <button type="submit" className="btn btn-success" disabled={!formik.isValid} >Export</button>
+                                                                </div>
+                                                                <br />
+                                                                <div>
+                                                                    <div className="form-group">
+                                                                        <label htmlFor="backupdata">Back-up data</label>
+                                                                        <Field as="textarea" name="backupdata" className="form-control" value={tempData} />
+                                                                    </div>
+                                                                    <div style={{ display: "flex", float: "right" }}>
+                                                                        <DownloadLink
+                                                                            label={<GetAppIcon color="disabled" fontSize="large" />}
+                                                                            filename={`${formik.values.projectname}.json`}
+                                                                            exportFile={() => tempData}
+                                                                        />
+                                                                        <CopyToClipboard onCopy={onCopy} text={tempData}>
+                                                                            <button ><FileCopyIcon fontSize="large" color="disabled" /></button>
+                                                                        </CopyToClipboard>    
+                                                                    </div>
+                                                                    {state.copied ? <span style={{ color: 'green' }}>Copied.</span> : null}
                                                                 </div>
                                                             </Form>
                                                         }

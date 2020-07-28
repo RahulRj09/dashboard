@@ -1,6 +1,5 @@
 import { BACKUP_REQUEST, BACKUP_SUCCESS, BACKUP_FAILURE } from './backupTypes';
 import axios from 'axios';
-import { months } from 'moment';
 
 const backupRequest = () => {
     return {
@@ -27,8 +26,8 @@ const getBackupData = (backupParameters) => {
         let projectName = backupParameters.projectname
         let backupDate = convertDate(backupParameters.backupdate)
         dispatch(backupRequest())
-        let url = "http://13.71.2.248/projects/local/" + projectName + "/" + backupDate
-       console.log(url)
+        let url = `http://13.71.2.248:8000/projects/backup/${projectName}/${backupDate}`
+        console.log(url)
         axios.get(url).then(response => {
             console.log(response)
             dispatch(backupSuccess(response.data))
@@ -40,10 +39,10 @@ const getBackupData = (backupParameters) => {
 
 const convertDate = (date) => {
     let newDate = ""
-    let day = date.getDay()
-    let month = date.getMonth()
-    let year = date.getFullYear()
-    newDate = `${day}/${month}/${year}`
+    let day = date.getUTCDate() + 1
+    let month = date.getUTCMonth() + 1
+    let year = date.getUTCFullYear()
+    newDate = `${day}-${month}-${year}`
     return newDate
 }
 
