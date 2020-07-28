@@ -136,12 +136,12 @@ const Backup = ({ backupData, getBackupData, projects, getProjects }) => {
                                                                         </div>
                                                                         <div style={{ display: "flex", float: "right", display: "inline" }}>
                                                                             <DownloadLink
-                                                                                label={<GetAppIcon color="disabled" fontSize="large" />}
+                                                                                label={<GetAppIcon color="disabled" fontSize="small" />}
                                                                                 filename={`${formik.values.projectname}.json`}
                                                                                 exportFile={() => tempData}
                                                                             />&nbsp;&nbsp;&nbsp;
                                                                             <CopyToClipboard onCopy={onCopy} text={tempData}>
-                                                                                <FileCopyIcon fontSize="large" color="disabled" />
+                                                                                <FileCopyIcon fontSize="smallo" color="disabled" />
                                                                             </CopyToClipboard>
                                                                         </div>
                                                                         {state.copied ? <span style={{ color: '#6c757d' }}>Copied.</span> : null}

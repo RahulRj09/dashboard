@@ -71,7 +71,10 @@ function Login({ isAuth, isAuthCall }) {
                                                                         </button>
                                                                     </div> : ""
                                                                 }
-                                                                <button type='submit' className="btn btn-secondary" disabled={!formik.isValid}>Login</button>
+                                                                <div style={{ display: "flex", float: "right", display: "inline" }}>
+                                                                    <button type='submit' className="btn btn-secondary" disabled={!formik.isValid}>Login</button>
+                                                                </div>
+
                                                             </Form>
                                                         }
                                                     }
