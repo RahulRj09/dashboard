@@ -217,6 +217,7 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
 
                                                 </div>
                                             </div>
+                                            {state.copied ? <span style={{ color: '#6c757d' }}>Copied.</span> : null}
                                             <p>Start Date : {development.startDate}</p>
                                             <p>Expiry Date : {development.validTill}</p>
                                             <p>UUID : {development.uuid}</p>

@@ -62,7 +62,7 @@ const Backup = ({ backupData, getBackupData }) => {
     }
     return (
         <div>
-            <section id="cover" className="min-vh-100" style={{ marginTop: '1%' }} >
+            <section id="cover" className="min-vh-100" style={{ marginTop: '3%' }} >
                 <Header />
                 <main
                     className={classNames(classes.content, {
@@ -87,12 +87,12 @@ const Backup = ({ backupData, getBackupData }) => {
                                                                 </div>
                                                                 <div className="form-group">
                                                                     <label htmlFor="backupdate">Back-up Date</label>
-                                                                    <Field name="backupdate" type="date" >
+                                                                    <Field name="backupdate" type="date" className="form-control" >
                                                                         {
                                                                             ({ form, field }) => {
                                                                                 const { setFieldValue } = form
                                                                                 const { value } = field
-                                                                                return <DateView name="backupdate" className="demo" {...field}
+                                                                                return <DateView name="backupdate" className="form-control"  {...field}
                                                                                     selected={value} onChange={val => setFieldValue("backupdate", val)} />
                                                                             }
                                                                         }
@@ -115,12 +115,12 @@ const Backup = ({ backupData, getBackupData }) => {
                                                                                 label={<GetAppIcon color="disabled" fontSize="large" />}
                                                                                 filename={`${formik.values.projectname}.json`}
                                                                                 exportFile={() => tempData}
-                                                                            />
+                                                                            />&nbsp;&nbsp;&nbsp;
                                                                             <CopyToClipboard onCopy={onCopy} text={tempData}>
                                                                                 <FileCopyIcon fontSize="large" color="disabled" />
                                                                             </CopyToClipboard>
                                                                         </div>
-                                                                        {state.copied ? <span style={{ color: 'green' }}>Copied.</span> : null}
+                                                                        {state.copied ? <span style={{ color: '#6c757d' }}>Copied.</span> : null}
                                                                     </div> : ""
                                                                 }
                                                             </Form>

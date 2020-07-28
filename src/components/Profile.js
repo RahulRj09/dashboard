@@ -49,7 +49,7 @@ function Profile({ profileData, getProfile }) {
                             <div className="col-md-7">
 
                                 <div className="card ">
-                                    <div className="card-header">  <h4 className="textcolor">User Profile</h4></div>
+                                    <div className="card-header">  <h4>User Profile</h4></div>
                                     <div className="card-block">
 
                                         <div className="box box-info">

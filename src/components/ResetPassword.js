@@ -69,7 +69,7 @@ function ResetPassword(props) {
     return (
         <div>
 
-            <section id="cover" className="min-vh-100" style={{ marginTop: '5%' }} >
+            <section id="cover" className="min-vh-100" style={{ marginTop: '3%' }} >
                 <Header />
                 <main
                     className={classNames(classes.content, {
