@@ -146,17 +146,28 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                 }
             </Formik>)
     }
-
     let [showMeKey, setShowMeKey] = useState({
-        showMe: false,
-        operation: "show"
+        development: {
+            showMe: false,
+            operation: "show"
+        },
+        production: {
+            showMe: false,
+            operation: "show"
+        },
+        test: {
+            showMe: false,
+            operation: "show"
+        }
     })
 
-    const showSubscriptioKey = () => {
-        if (showMeKey.showMe === false) {
-            setShowMeKey({ showMeKey, showMe: true, showMeKey, operation: "hide" })
+    const showSubscriptioKey = (showKeyType) => {
+        console.log("Rahul")
+        console.log(showKeyType)
+        if (showMeKey[showKeyType].showMe === false) {
+            setShowMeKey({ ...showMeKey, [showKeyType]: { showMe: true, operation: "hide" } })
         } else {
-            setShowMeKey({ showMeKey, showMe: false, showMeKey, operation: "show" })
+            setShowMeKey({ ...showMeKey, [showKeyType]: { showMe: false, operation: "show" } })
         }
 
     }
@@ -166,6 +177,8 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
         setState({ ...state, copied: true });
     };
 
+    let developmentOperation = showMeKey.development.operation
+    console.log(developmentOperation)
     let loginStatus = localStorage.getItem("isAuth")
     if (loginStatus === "false") {
         return <Redirect to='/' />
@@ -205,9 +218,9 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                             <br />
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text" onClick={() => showSubscriptioKey()}>{showMeKey.operation}</span>
+                                                    <span class="input-group-text" onClick={() => showSubscriptioKey("development")}>{developmentOperation}</span>
                                                 </div>
-                                                <input type="text" class="form-control" value={showMeKey.showMe ? development.key : "subscription key"} />
+                                                <input type="text" class="form-control" value={showMeKey.development.showMe ? development.key : "subscription key"} />
                                                 <div class="input-group-append" >
                                                     <span class="input-group-text">
                                                         <CopyToClipboard onCopy={onCopy} text={development.key}>
@@ -270,9 +283,9 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                             <br />
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text" onClick={() => showSubscriptioKey()}>{showMeKey.operation}</span>
+                                                    <span class="input-group-text" onClick={() => showSubscriptioKey("production")}>{showMeKey.production.operation}</span>
                                                 </div>
-                                                <input type="text" class="form-control" value={showMeKey.showMe ? production.key : "subscription key"} />
+                                                <input type="text" class="form-control" value={showMeKey.production.showMe ? production.key : "subscription key"} />
                                                 <div class="input-group-append" >
                                                     <span class="input-group-text">
                                                         <CopyToClipboard onCopy={onCopy} text={production.key}>
@@ -334,9 +347,9 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                             <br />
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text" onClick={() => showSubscriptioKey()}>{showMeKey.operation}</span>
+                                                    <span class="input-group-text" onClick={() => showSubscriptioKey("test")}>{showMeKey.test.operation}</span>
                                                 </div>
-                                                <input type="text" class="form-control" value={showMeKey.showMe ? testEnvironment.key : "subscription key"} />
+                                                <input type="text" class="form-control" value={showMeKey.test.showMe ? testEnvironment.key : "subscription key"} />
                                                 <div class="input-group-append" >
                                                     <span class="input-group-text">
                                                         <CopyToClipboard onCopy={onCopy} text={testEnvironment.key}>
