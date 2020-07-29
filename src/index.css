@@ -22,8 +22,9 @@ a:visited {
 } */
 
 .main-nav-active {
-  color: '00bffed'
+  color: #007bff !important
 }
+
 /* .disabled-link {
   pointer-events: none;
 } */

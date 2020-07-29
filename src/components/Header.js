@@ -145,61 +145,56 @@ class Header extends Component {
                     >
                         <div className={classes.toolbar} />
                         <List>
-                            <ListItem button key="home">
+                            <ListItem button key="Home" activeClassName="main-nav-active" component={NavLink} to="/home">
                                 <ListItemIcon>
-                                    <NavLink exact to="/home" activeClassName="main-nav-active"><HomeIcon /></NavLink>
+                                    <HomeIcon />
                                 </ListItemIcon>
-                                <ListItemText><NavLink to="/home" activeClassName="main-nav-active">Home</NavLink></ListItemText>
+                                <ListItemText primary="Home" />
                             </ListItem>
-                            <ListItem button key="project">
+                            <ListItem button key="Project" activeClassName="main-nav-active" component={NavLink} to="/projects">
                                 <ListItemIcon>
-                                    <NavLink to="/projects" activeClassName="main-nav-active"><AccountTreeIcon /></NavLink>
+                                    <AccountTreeIcon />
                                 </ListItemIcon>
-                                <ListItemText><NavLink to={{
-                                    pathname: "/projects",
-                                    state: {
-                                        drawer: this.state.open
-                                    }
-                                }} activeClassName="main-nav-active"> Project</NavLink></ListItemText>
+                                <ListItemText primary="Project" />
                             </ListItem>
-                            <ListItem button key="UserManagement">
-                                <ListItemIcon>
-                                    <NavLink to="/user_management"><GroupAddIcon /></NavLink>
+                            <ListItem button key="User Management" activeClassName="main-nav-active" component={NavLink} to="/user_management">
+                                <ListItemIcon >
+                                    <GroupAddIcon />
                                 </ListItemIcon>
-                                <ListItemText><NavLink to="/user_management">User Management</NavLink></ListItemText>
+                                <ListItemText primary="User Management" />
                             </ListItem>
-                            <ListItem button key="ErrorLog">
+                            <ListItem button key="ErrorLog" activeClassName="main-nav-active" component={NavLink} to="/error_log">
                                 <ListItemIcon>
-                                    <NavLink to="/error_log"><ErrorIcon /></NavLink>
+                                    <ErrorIcon />
                                 </ListItemIcon>
-                                <ListItemText><NavLink to="/error_log">Error Log</NavLink></ListItemText>
+                                <ListItemText primary="Error Log" />
                             </ListItem>
-                            <ListItem button key="Subscription">
+                            <ListItem button key="Subscription" activeClassName="main-nav-active" component={NavLink} to="/subscription">
                                 <ListItemIcon>
-                                    <NavLink to="/subscription"><CardMembershipIcon /></NavLink>
+                                    <CardMembershipIcon />
                                 </ListItemIcon>
-                                <ListItemText><NavLink to="/subscription">Subscription</NavLink></ListItemText>
+                                <ListItemText primary="Subscription" />
                             </ListItem>
-                            <ListItem button key="Backup">
+                            <ListItem button key="Backup" activeClassName="main-nav-active" component={NavLink} to="/backup">
                                 <ListItemIcon>
-                                    <NavLink to="/backup"><BackupIcon /></NavLink>
+                                    <BackupIcon />
                                 </ListItemIcon>
-                                <ListItemText><NavLink to="/backup">Back-up</NavLink></ListItemText>
+                                <ListItemText primary="Backup" />
                             </ListItem>
 
                         </List>
                         <Divider />
                         <List>
-                            <ListItem button key="logout">
+                            <ListItem button key="Logout" activeClassName="main-nav-active" component={NavLink} to="/logout">
                                 <ListItemIcon>
-                                    <NavLink to="/logout"><LockIcon /></NavLink>
+                                    <LockIcon />
                                 </ListItemIcon>
-                                <ListItemText><NavLink to="/logout">Logout</NavLink></ListItemText>
+                                <ListItemText primary="Logout" />
                             </ListItem>
 
                         </List>
-                    </Drawer>
-                </div>
+                    </Drawer >
+                </div >
             );
         }
     }
