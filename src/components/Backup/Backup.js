@@ -1,21 +1,21 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import Header from './Header'
-import drawerCss from '../style/drawer'
+import Header from '../Header'
+import drawerCss from '../../style/drawer'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import classNames from "classnames";
-import { getBackupData, getProjects } from '../store'
+import { getBackupData, getProjects } from '../../store'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
-import TextError from './TextError'
+import TextError from '../TextError'
 import DateView from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import DownloadLink from "react-download-link";
 import GetAppIcon from '@material-ui/icons/GetApp';
-import '../style/date.css'
+import '../../style/date.css'
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 

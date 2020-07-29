@@ -6,15 +6,15 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography'
-import dashboardCard from '../style/dashboardCard'
-import { getSubscriptionDetails } from '../store'
-import { getTheExpDate, dateFormat } from '../utils/SubscriptionDate'
-import getProgressBar from '../utils/ProgressBar'
+import dashboardCard from '../../style/dashboardCard'
+import { getSubscriptionDetails } from '../../store'
+import { getTheExpDate, dateFormat } from './SubscriptionDate'
+import getProgressBar from '../../utils/ProgressBar'
 
 
 const useStyles = makeStyles((theme) => dashboardCard(theme));
 
-const SubscriptionCard = ({ subscriptionDetails, getSubscriptionDetails }) => {
+const SubscriptionCardDashboard = ({ subscriptionDetails, getSubscriptionDetails }) => {
 
     const classes = useStyles();
     let productsData = JSON.parse(localStorage.getItem("loginDetails")).userData.data.products.GstComplianceEdition
@@ -74,4 +74,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SubscriptionCard)
+export default connect(mapStateToProps, mapDispatchToProps)(SubscriptionCardDashboard)

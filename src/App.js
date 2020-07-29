@@ -12,8 +12,8 @@ import Profile from './components/Profile';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
 import ErrorLog from './components/ErrorLog';
-import Subscription from './components/Subscription';
-import Backup from './components/Backup';
+import Subscription from './components/Subscription/Subscription';
+import Backup from './components/Backup/Backup';
 
 function App() {
   return (

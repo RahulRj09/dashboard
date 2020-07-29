@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import Header from './Header'
+import Header from '../Header'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import classNames from "classnames";
-import drawerCss from '../style/drawer'
-import '../style/form1.css'
-import '../style/resetPassword.css'
-import '../style/form.css'
-import { getSubscriptionDetails, reGenerateSubscriptionkey } from '../store'
-import { getTheExpDate, dateFormat } from '../utils/SubscriptionDate'
-import getProgressBar from '../utils/ProgressBar'
+import drawerCss from '../../style/drawer'
+import '../../style/form1.css'
+import '../../style/resetPassword.css'
+import '../../style/form.css'
+import { getSubscriptionDetails, reGenerateSubscriptionkey } from '../../store'
+import { getTheExpDate, dateFormat } from './SubscriptionDate'
+import getProgressBar from '../../utils/ProgressBar'
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import * as Yup from 'yup'
@@ -27,7 +27,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { getReGenerateKeyForm } from '../utils/ReGenerateKeyForm'
+import { getReGenerateKeyForm } from './ReGenerateKeyForm'
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDetails, reGenerateSubscriptionkey }) => {

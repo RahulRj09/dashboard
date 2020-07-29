@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import drawerCss from '../style/drawer'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import classNames from "classnames";
-import SubscriptionCard from './SubscriptionCard'
+import SubscriptionCardDashboard from './Subscription/SubscriptionCardDashboard'
 import ErrorCount from './ErrorCount'
 import ProjectCount from './ProjectCount'
 import BackupCard from './Backup/BackupCard'
@@ -44,7 +44,7 @@ function Home({ isAuth }) {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-4" style={{ marginBottom: "3%" }} >
-                                <SubscriptionCard />
+                                <SubscriptionCardDashboard />
                             </div>
                             <div className="col-md-4" style={{ marginBottom: "3%" }} >
                                 <ErrorCount />
