@@ -64,7 +64,7 @@ function Login({ isAuth, isAuthCall }) {
                                                                 </div>
                                                                 <div className="form-group">
                                                                     <input id="check" type="checkbox" className="check" />
-                                                                    <label htmlFor="check"><span className="icon"></span> Remember me</label>
+                                                                    <label htmlFor="check"><span className="icon"></span>&nbsp; Remember me</label>
                                                                 </div>
                                                                 {
 
