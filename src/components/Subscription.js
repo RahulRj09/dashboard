@@ -1,31 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import { connect } from 'react-redux'
-import { Redirect, NavLink } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import classNames from "classnames";
 import drawerCss from '../style/drawer'
 import '../style/form1.css'
 import '../style/resetPassword.css'
 import '../style/form.css'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
-import * as Yup from 'yup'
-import TextError from './TextError'
 import { getSubscriptionDetails, reGenerateSubscriptionkey } from '../store'
 import { getTheExpDate, dateFormat } from '../utils/SubscriptionDate'
 import getProgressBar from '../utils/ProgressBar'
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
+import * as Yup from 'yup'
+import {
+    CardHeader,
+    CardContent,
+    CardActions,
+    Collapse,
+    Avatar,
+    IconButton
+} from '@material-ui/core';
+import FileCopyIcon from '@material-ui/icons/FileCopy'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+
+import { getReGenerateKeyForm } from '../utils/ReGenerateKeyForm'
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDetails, reGenerateSubscriptionkey }) => {
@@ -36,16 +38,6 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
         setExpanded({ ...expanded, [expandedType]: !expanded[expandedType] });
     };
 
-
-
-
-
-    const options = [
-        { key: 'Select an option', value: '' },
-        { key: 'development', value: 'development' },
-        { key: 'production', value: 'production' },
-        { key: 'test', value: 'test' }
-    ]
     const theme = useTheme();
     const [time, setTime] = useState(Date.now());
     let drawer = JSON.parse(localStorage.getItem("open"))
@@ -95,57 +87,6 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
         reGenerateSubscriptionkey(values)
     }
 
-    const getReGenerateKeyForm = () => {
-        return (
-            <Formik initialValues={initialValue} validationSchema={validationSchema} onSubmit={onSubmit}>
-                {
-                    formik => {
-                        return <Form>
-                            <div className="form-group">
-                                <label htmlFor="reason">Reason</label>
-                                <Field type="text" name="reason" className="form-control" placeholder="Reason" />
-                                <ErrorMessage name="reason" component={TextError} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="keyType">keyType</label>
-                                <Field as='select' id="keytype" name="keytype" className="form-control"  >
-                                    {
-                                        options.map(option => {
-                                            return (
-                                                <option key={option.key} value={option.value}>
-                                                    {option.key}
-                                                </option>
-                                            )
-                                        })
-                                    }
-                                </Field>
-                                <ErrorMessage name="keytype" component={TextError} />
-                            </div>
-                            {
-                                subscriptionKey.loading ? <div className="alert alert-success alert-dismissible fade show" role="alert">
-                                    <span className="help-block">Subscription key re-generate successfully</span>
-                                    <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div> : ""
-                            }
-                            {
-                                subscriptionKey.error ? <div className="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <span className="help-block">hello</span>
-                                    <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div> : ""
-                            }
-                            <div style={{ display: "flex", float: "right", display: "inline" }}>
-                                <button type='submit' className="btn btn-secondary" disabled={!formik.isValid} style={{ marginBottom: '15px' }}>Generate</button>
-                            </div>
-
-                        </Form>
-                    }
-                }
-            </Formik>)
-    }
     let [showMeKey, setShowMeKey] = useState({
         development: {
             showMe: false,
@@ -172,9 +113,9 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
 
     }
 
-    const [state, setState] = useState({ value: 'some\ntext', copied: false })
-    const onCopy = () => {
-        setState({ ...state, copied: true });
+    const [state, setState] = useState({ development: { copied: false }, production: { copied: false }, test: { copied: false } })
+    const onCopy = (copyType) => {
+        setState({ ...state, [copyType]: { copied: true } });
     };
 
     let developmentOperation = showMeKey.development.operation
@@ -203,11 +144,6 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                                     SD
           </Avatar>
                                             }
-                                            action={
-                                                <IconButton aria-label="settings">
-                                                    <MoreVertIcon />
-                                                </IconButton>
-                                            }
                                             title="Development key details"
                                         />
 
@@ -223,14 +159,14 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                                 <input type="text" class="form-control" value={showMeKey.development.showMe ? development.key : "subscription key"} />
                                                 <div class="input-group-append" >
                                                     <span class="input-group-text">
-                                                        <CopyToClipboard onCopy={onCopy} text={development.key}>
+                                                        <CopyToClipboard onCopy={() => onCopy("development")} text={development.key}>
                                                             <FileCopyIcon fontSize="small" color="disabled" />
                                                         </CopyToClipboard>
                                                     </span>
 
                                                 </div>
                                             </div>
-                                            {state.copied ? <span style={{ color: '#6c757d' }}>Copied.</span> : null}
+                                            {state.development.copied ? <span style={{ color: '#6c757d' }}>Copied.</span> : null}
                                             <p>Start Date : {development.startDate}</p>
                                             <p>Expiry Date : {development.validTill}</p>
                                             <p>UUID : {development.uuid}</p>
@@ -252,7 +188,7 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                         <Collapse in={expanded.development} timeout="auto" unmountOnExit>
                                             <CardContent>
                                                 {
-                                                    getReGenerateKeyForm()
+                                                    getReGenerateKeyForm(subscriptionKey, initialValue, validationSchema, onSubmit)
                                                 }
                                             </CardContent>
                                         </Collapse>
@@ -267,11 +203,6 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                                 <Avatar aria-label="recipe" className={classes.avatar}>
                                                     SD
       </Avatar>
-                                            }
-                                            action={
-                                                <IconButton aria-label="settings">
-                                                    <MoreVertIcon />
-                                                </IconButton>
                                             }
                                             title="Production key details"
                                         />
@@ -288,13 +219,14 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                                 <input type="text" class="form-control" value={showMeKey.production.showMe ? production.key : "subscription key"} />
                                                 <div class="input-group-append" >
                                                     <span class="input-group-text">
-                                                        <CopyToClipboard onCopy={onCopy} text={production.key}>
+                                                        <CopyToClipboard onCopy={() => onCopy("production")} text={production.key}>
                                                             <FileCopyIcon fontSize="small" color="disabled" />
                                                         </CopyToClipboard>
                                                     </span>
 
                                                 </div>
                                             </div>
+                                            {state.production.copied ? <span style={{ color: '#6c757d' }}>Copied.</span> : null}
                                             <p>Start Date : {production.startDate}</p>
                                             <p>Expiry Date : {production.validTill}</p>
                                             <p>UUID : {production.uuid}</p>
@@ -316,7 +248,7 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                         <Collapse in={expanded.production} timeout="auto" unmountOnExit>
                                             <CardContent>
                                                 {
-                                                    getReGenerateKeyForm()
+                                                    getReGenerateKeyForm(subscriptionKey, initialValue, validationSchema, onSubmit)
                                                 }
                                             </CardContent>
                                         </Collapse>
@@ -331,11 +263,6 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                                 <Avatar aria-label="recipe" className={classes.avatar}>
                                                     SD
           </Avatar>
-                                            }
-                                            action={
-                                                <IconButton aria-label="settings">
-                                                    <MoreVertIcon />
-                                                </IconButton>
                                             }
                                             title="Test key details"
                                         />
@@ -352,13 +279,14 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                                 <input type="text" class="form-control" value={showMeKey.test.showMe ? testEnvironment.key : "subscription key"} />
                                                 <div class="input-group-append" >
                                                     <span class="input-group-text">
-                                                        <CopyToClipboard onCopy={onCopy} text={testEnvironment.key}>
+                                                        <CopyToClipboard onCopy={() => onCopy("test")} text={testEnvironment.key}>
                                                             <FileCopyIcon fontSize="small" color="disabled" />
                                                         </CopyToClipboard>
                                                     </span>
 
                                                 </div>
                                             </div>
+                                            {state.test.copied ? <span style={{ color: '#6c757d' }}>Copied.</span> : null}
                                             <p>Start Date : {testEnvironment.startDate}</p>
                                             <p>Expiry Date : {testEnvironment.validTill}</p>
                                             <p>UUID : {testEnvironment.uuid}</p>
@@ -380,7 +308,7 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                         <Collapse in={expanded.test} timeout="auto" unmountOnExit>
                                             <CardContent>
                                                 {
-                                                    getReGenerateKeyForm()
+                                                    getReGenerateKeyForm(subscriptionKey, initialValue, validationSchema, onSubmit)
                                                 }
                                             </CardContent>
                                         </Collapse>

@@ -7,6 +7,7 @@ import {
     RE_GENERATE_SUBSCRIPTION_KEY_SUCCESS
 } from './subscriptionTypes'
 import axios from 'axios';
+import { date } from 'yup';
 
 const subscriptionRequest = () => {
     return {
@@ -70,6 +71,7 @@ const reGenerateSubscriptionkey = (data) => {
             email: data.email,
             orderId: data.orderId
         }
+        console.log(data)
         let url = ""
         if (data.keytype === "development") {
             url = "http://104.211.200.240:1340/regenerate-dev-key"
