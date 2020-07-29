@@ -9,6 +9,7 @@ import classNames from "classnames";
 import SubscriptionCard from './SubscriptionCard'
 import ErrorCount from './ErrorCount'
 import ProjectCount from './ProjectCount'
+import BackupCard from './Backup/BackupCard'
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 
@@ -51,6 +52,9 @@ function Home({ isAuth }) {
                             </div>
                             <div className="col-md-4" style={{ marginBottom: "3%" }} >
                                 <ProjectCount />
+                            </div>
+                            <div className="col-md-4" style={{ marginBottom: "3%" }} >
+                                <BackupCard />
                             </div>
                         </div>
                     </div>
