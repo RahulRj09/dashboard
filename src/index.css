@@ -25,10 +25,6 @@ a:visited {
   color: #007bff !important
 }
 
-/* .disabled-link {
-  pointer-events: none;
-} */
-
-a[disabled] {
-  pointer-events: none;
+.demo:active {
+  color: #007bff
 }
