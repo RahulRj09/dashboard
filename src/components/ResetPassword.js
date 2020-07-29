@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect, Link } from 'react-router-dom'
 import Header from './Header'
-import '../style/dashboard.css'
 import '../style/resetPassword.css'
 import drawerCss from '../style/drawer'
 import { makeStyles, useTheme } from '@material-ui/core/styles';

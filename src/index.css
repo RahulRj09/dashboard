@@ -20,3 +20,14 @@ a:visited {
 /* button:visited {
   text-decoration: none;
 } */
+
+.main-nav-active {
+  color: '00bffed'
+}
+/* .disabled-link {
+  pointer-events: none;
+} */
+
+a[disabled] {
+  pointer-events: none;
+}

@@ -147,20 +147,20 @@ class Header extends Component {
                         <List>
                             <ListItem button key="home">
                                 <ListItemIcon>
-                                    <NavLink to="/home"><HomeIcon /></NavLink>
+                                    <NavLink exact to="/home" activeClassName="main-nav-active"><HomeIcon /></NavLink>
                                 </ListItemIcon>
-                                <ListItemText><NavLink to="/home">Home</NavLink></ListItemText>
+                                <ListItemText><NavLink to="/home" activeClassName="main-nav-active">Home</NavLink></ListItemText>
                             </ListItem>
                             <ListItem button key="project">
                                 <ListItemIcon>
-                                    <NavLink to="/projects"><AccountTreeIcon /></NavLink>
+                                    <NavLink to="/projects" activeClassName="main-nav-active"><AccountTreeIcon /></NavLink>
                                 </ListItemIcon>
                                 <ListItemText><NavLink to={{
                                     pathname: "/projects",
                                     state: {
                                         drawer: this.state.open
                                     }
-                                }}> Project</NavLink></ListItemText>
+                                }} activeClassName="main-nav-active"> Project</NavLink></ListItemText>
                             </ListItem>
                             <ListItem button key="UserManagement">
                                 <ListItemIcon>
@@ -192,9 +192,9 @@ class Header extends Component {
                         <List>
                             <ListItem button key="logout">
                                 <ListItemIcon>
-                                    <Link to="/logout"><LockIcon /></Link>
+                                    <NavLink to="/logout"><LockIcon /></NavLink>
                                 </ListItemIcon>
-                                <ListItemText><Link to="/logout">Logout</Link></ListItemText>
+                                <ListItemText><NavLink to="/logout">Logout</NavLink></ListItemText>
                             </ListItem>
 
                         </List>
