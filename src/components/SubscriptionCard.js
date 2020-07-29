@@ -17,9 +17,9 @@ const useStyles = makeStyles((theme) => dashboardCard(theme));
 const SubscriptionCard = ({ subscriptionDetails, getSubscriptionDetails }) => {
 
     const classes = useStyles();
-
+    let productsData = JSON.parse(localStorage.getItem("loginDetails")).userData.data.products.GstComplianceEdition
     useEffect(() => {
-        getSubscriptionDetails()
+        getSubscriptionDetails(productsData.id)
     }, [getSubscriptionDetails])
 
     let development = {}
@@ -31,7 +31,7 @@ const SubscriptionCard = ({ subscriptionDetails, getSubscriptionDetails }) => {
             development["rMonthsInPercents"] = getTheExpDate(temp.validTill)
         }
     })
-   
+
     return (
         <div>
             <Card className={classes.root}>
@@ -70,7 +70,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getSubscriptionDetails: () => dispatch(getSubscriptionDetails())
+        getSubscriptionDetails: (id) => dispatch(getSubscriptionDetails(id))
     }
 }
 

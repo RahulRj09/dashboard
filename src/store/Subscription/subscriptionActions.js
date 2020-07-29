@@ -50,10 +50,10 @@ const subscriptionKeyFaliure = (error) => {
 
 
 
-const getSubscriptionDetails = () => {
+const getSubscriptionDetails = (id) => {
     return (dispatch) => {
         dispatch(subscriptionRequest())
-        let url = "http://104.211.200.240:1340/licenses/5e6b75bd377d20b20cc3e35e"
+        let url = "http://104.211.200.240:1340/licenses/" + id
         axios.get(url).then(response => {
             dispatch(subscriptionSuccess(response.data))
         }).catch(err => {

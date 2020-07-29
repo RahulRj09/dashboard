@@ -30,16 +30,14 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDetails, reGenerateSubscriptionkey }) => {
     const classes = useStyles();
-    const [expanded1, setExpanded1] = React.useState(false);
-    const [expanded2, setExpanded2] = React.useState(false);
+    const [expanded, setExpanded] = React.useState({ development: false, production: false, test: false });
 
-    const handleExpandClick1 = () => {
-        setExpanded1(!expanded1);
+    const handleExpandClick = (expandedType) => {
+        setExpanded({ ...expanded, [expandedType]: !expanded[expandedType] });
     };
 
-    const handleExpandClick2 = () => {
-        setExpanded2(!expanded2);
-    };
+
+
 
 
     const options = [
@@ -58,8 +56,10 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
         };
     }, [])
 
+    let productsData = JSON.parse(localStorage.getItem("loginDetails")).userData.data.products.GstComplianceEdition
+
     useEffect(() => {
-        getSubscriptionDetails()
+        getSubscriptionDetails(productsData.id)
     }, [getSubscriptionDetails])
 
     let development = {}
@@ -83,7 +83,7 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
         keytype: "",
         name: userDetails.name,
         email: userDetails.email,
-        orderId: "5e6b75bd377d20b20cc3e35e",
+        orderId: productsData.id,
     }
 
     const validationSchema = Yup.object({
@@ -227,16 +227,16 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                             <h5>Re-Generate subscription key </h5>
                                             <IconButton
                                                 className={clsx(classes.expand, {
-                                                    [classes.expandOpen]: expanded1,
+                                                    [classes.expandOpen]: expanded.development,
                                                 })}
-                                                onClick={handleExpandClick1}
-                                                aria-expanded={expanded1}
+                                                onClick={() => handleExpandClick("development")}
+                                                aria-expanded={expanded.development}
                                                 aria-label="show more"
                                             >
                                                 <ExpandMoreIcon />
                                             </IconButton>
                                         </CardActions>
-                                        <Collapse in={expanded1} timeout="auto" unmountOnExit>
+                                        <Collapse in={expanded.development} timeout="auto" unmountOnExit>
                                             <CardContent>
                                                 {
                                                     getReGenerateKeyForm()
@@ -291,16 +291,16 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                             <h5>Generate subscription key</h5>
                                             <IconButton
                                                 className={clsx(classes.expand, {
-                                                    [classes.expandOpen]: expanded2,
+                                                    [classes.expandOpen]: expanded.production,
                                                 })}
-                                                onClick={handleExpandClick2}
-                                                aria-expanded={expanded2}
+                                                onClick={() => handleExpandClick("production")}
+                                                aria-expanded={expanded.production}
                                                 aria-label="show more"
                                             >
                                                 <ExpandMoreIcon />
                                             </IconButton>
                                         </CardActions>
-                                        <Collapse in={expanded2} timeout="auto" unmountOnExit>
+                                        <Collapse in={expanded.production} timeout="auto" unmountOnExit>
                                             <CardContent>
                                                 {
                                                     getReGenerateKeyForm()
@@ -311,7 +311,7 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                 </div> : ""
                             }
                             {
-                                testEnvironment.hasOwnProperty("startDate") ? <div className="col-md-4" style={{ marginBottom: "3%" }} >
+                                testEnvironment ? <div className="col-md-4" style={{ marginBottom: "3%" }} >
                                     <Card className={classes.root}>
                                         <CardHeader
                                             avatar={
@@ -355,16 +355,16 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                             <h5>Re-Generate subscription key </h5>
                                             <IconButton
                                                 className={clsx(classes.expand, {
-                                                    [classes.expandOpen]: expanded1,
+                                                    [classes.expandOpen]: expanded.test,
                                                 })}
-                                                onClick={handleExpandClick1}
-                                                aria-expanded={expanded1}
+                                                onClick={() => handleExpandClick("test")}
+                                                aria-expanded={expanded.test}
                                                 aria-label="show more"
                                             >
                                                 <ExpandMoreIcon />
                                             </IconButton>
                                         </CardActions>
-                                        <Collapse in={expanded1} timeout="auto" unmountOnExit>
+                                        <Collapse in={expanded.test} timeout="auto" unmountOnExit>
                                             <CardContent>
                                                 {
                                                     getReGenerateKeyForm()
@@ -392,7 +392,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getSubscriptionDetails: () => dispatch(getSubscriptionDetails()),
+        getSubscriptionDetails: (id) => dispatch(getSubscriptionDetails(id)),
         reGenerateSubscriptionkey: (data) => dispatch(reGenerateSubscriptionkey(data))
     }
 }
