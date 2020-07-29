@@ -54,7 +54,7 @@ function SingleProject({ location, flows, getFlows }) {
                     <div className="card">
                         <div className="card-header" id="headingOne">
                             <h2 className="mb-0">
-                                <button type="button" className="btn btn-link" data-toggle="collapse" data-target={`#collapse${i}`}><i className="fa fa-angle-down"></i>{flows[i]["flow"]}</button> <h6 style={{ float: "right", marginTop: "2%" }}>Total Errors : {1} Total Nodes : {flows[i]["nodes"].length}</h6>
+                                <button type="button" className="btn btn-link" data-toggle="collapse" data-target={`#collapse${i}`}><i className="fa fa-angle-down"></i>{flows[i]["flow"]}</button> <h6 style={{ float: "right", marginTop: "2%" }}>Total Nodes : {flows[i]["nodes"].length}</h6>
                             </h2>
                         </div>
                         <div id={`collapse${i}`} className="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">

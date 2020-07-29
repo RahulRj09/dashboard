@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { login } from '../store'
-import { useHistory, Redirect } from 'react-router-dom'
+import { useHistory, Redirect, Link } from 'react-router-dom'
 import logo from '../assets/mobillor.png'
 import styles from '../style/header.module.css'
 import '../style/form.css'
@@ -62,6 +62,10 @@ function Login({ isAuth, isAuthCall }) {
                                                                     <Field type="password" name="password" className="form-control" />
                                                                     <ErrorMessage name="password" component={TextError} />
                                                                 </div>
+                                                                <div className="form-group">
+                                                                    <input id="check" type="checkbox" className="check" />
+                                                                    <label htmlFor="check"><span className="icon"></span> Remember me</label>
+                                                                </div>
                                                                 {
 
                                                                     isAuth.error ? <div className="alert alert-danger alert-dismissible fade show" role="alert">
@@ -71,10 +75,13 @@ function Login({ isAuth, isAuthCall }) {
                                                                         </button>
                                                                     </div> : ""
                                                                 }
-                                                                <div style={{ display: "flex", float: "right", display: "inline" }}>
+                                                                <div style={{ display: "flex", float: "right", display: "inline" , marginTop:"-8%"}}>
                                                                     <button type='submit' className="btn btn-secondary" disabled={!formik.isValid}>Login</button>
+                                                                </div><br />
+                                                                <hr />
+                                                                <div class="foot-lnk">
+                                                                    <Link to='/forgot_password'>Forgot Password?</Link>
                                                                 </div>
-
                                                             </Form>
                                                         }
                                                     }
