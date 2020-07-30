@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { login } from '../store'
+import { login } from '../../store'
 import { useHistory, Redirect, Link } from 'react-router-dom'
-import logo from '../assets/mobillor.png'
-import styles from '../style/header.module.css'
-import '../style/form.css'
-import '../style/form1.css'
-import Header from './Header'
+import logo from '../../assets/mobillor.png'
+import styles from '../../style/header.module.css'
+import '../../style/form.css'
+import '../../style/form1.css'
+import Header from '../Header'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
-import TextError from './TextError'
+import TextError from '../TextError'
 
 function Login({ isAuth, isAuthCall }) {
     let history = useHistory()

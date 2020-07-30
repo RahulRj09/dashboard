@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect, Link } from 'react-router-dom'
-import Header from './Header'
-import '../style/resetPassword.css'
+import Header from '../Header'
+import '../../style/resetPassword.css'
 import { connect } from 'react-redux'
-import { forgotPassword } from '../store'
+import { forgotPassword } from '../../store'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
-import TextError from './TextError'
+import TextError from '../TextError'
 
 function ForgotPassword({ forgotPasswordData, forgotPassword }) {
     let loginStatus = localStorage.getItem("isAuth")

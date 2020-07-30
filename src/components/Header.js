@@ -155,11 +155,11 @@ class Header extends Component {
                                 </ListItemIcon>
                                 <ListItemText primary="Project" />
                             </ListItem>
-                            <ListItem button key="User Management" activeClassName="main-nav-active" component={NavLink} to="/user_management" exact>
+                            <ListItem button key="Users" activeClassName="main-nav-active" component={NavLink} to="/users" exact>
                                 <ListItemIcon >
                                     <GroupAddIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="User Management" />
+                                <ListItemText primary="Users" />
                             </ListItem>
                             <ListItem button key="ErrorLog" activeClassName="main-nav-active" component={NavLink} to="/error_log" exact>
                                 <ListItemIcon>

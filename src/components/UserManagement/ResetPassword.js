@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect, Link } from 'react-router-dom'
-import Header from './Header'
-import '../style/resetPassword.css'
-import drawerCss from '../style/drawer'
+import Header from '../Header'
+import '../../style/resetPassword.css'
+import drawerCss from '../../style/drawer'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import classNames from "classnames";
 import { connect } from 'react-redux'
-import { resetPassword } from '../store'
-import '../style/form1.css'
+import { resetPassword } from '../../store'
+import '../../style/form1.css'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
-import TextError from './TextError'
-import PasswordStrengthMeter from './PasswordStrengthMeter'
+import TextError from '../TextError'
+import PasswordStrengthMeter from '../PasswordStrengthMeter'
 
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))

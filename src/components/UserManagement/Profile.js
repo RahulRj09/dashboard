@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
-import Header from './Header'
+import Header from '../Header'
 import { connect } from 'react-redux'
-import drawerCss from '../style/drawer'
+import drawerCss from '../../style/drawer'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import classNames from "classnames";
-import '../style/profile.css'
-import { getProfile } from '../store'
+import '../../style/profile.css'
+import { getProfile } from '../../store'
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 

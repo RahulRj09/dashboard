@@ -4,10 +4,10 @@ import { Redirect, NavLink, Link, useHistory } from 'react-router-dom'
 import MaterialTable from 'material-table';
 import classNames from "classnames";
 import { connect } from 'react-redux'
-import Header from './Header'
-import drawerCss from '../style/drawer'
-import '../style/secondHeader.css'
-import { getUsers, addUser, deleteUser } from '../store/Users/userActions';
+import Header from '../Header'
+import drawerCss from '../../style/drawer'
+import '../../style/secondHeader.css'
+import { getUsers, addUser, deleteUser } from '../../store/Users/userActions';
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 
 function UserManagement(props) {
