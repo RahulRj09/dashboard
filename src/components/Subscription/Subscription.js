@@ -256,7 +256,7 @@ const Subscription = ({ subscriptionKey, subscriptionDetails, getSubscriptionDet
                                 </div> : ""
                             }
                             {
-                                testEnvironment ? <div className="col-md-4" style={{ marginBottom: "3%" }} >
+                                testEnvironment.hasOwnProperty("startDate") ? <div className="col-md-4" style={{ marginBottom: "3%" }} >
                                     <Card className={classes.root}>
                                         <CardHeader
                                             avatar={
