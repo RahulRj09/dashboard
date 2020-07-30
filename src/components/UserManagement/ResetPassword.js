@@ -11,7 +11,7 @@ import '../../style/form1.css'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import TextError from '../../utils/TextError'
-import PasswordStrengthMeter from '../PasswordStrengthMeter'
+import PasswordStrengthMeter from './PasswordStrengthMeter'
 
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
