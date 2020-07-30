@@ -5,8 +5,8 @@ import store from './store/store';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './components/Home';
 import Logout from './components/Logout';
-import Project from './components/Project'
-import SingleProject from './components/SingleProject'
+import Project from './components/Project/Project'
+import ProjectFlows from './components/Project/ProjectFlows'
 import UserManagement from './components/UserManagement';
 import Profile from './components/Profile';
 import ForgotPassword from './components/ForgotPassword';
@@ -24,7 +24,7 @@ function App() {
           <Route exact path="/home" component={Home} />
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/projects" component={Project} />
-          <Route exact path="/singleproject" component={SingleProject} />
+          <Route exact path="/project/flows" component={ProjectFlows} />
           <Route exact path="/user_management" component={UserManagement} />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/forgot_password" component={ForgotPassword} />

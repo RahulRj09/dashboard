@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import Header from './Header'
+import Header from '../Header'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Redirect, Link } from 'react-router-dom'
 import MaterialTable from 'material-table';
 import { connect } from 'react-redux'
 import classNames from "classnames";
-import drawerCss from '../style/drawer'
-import { getFlows } from '../store';
-import '../style/singleProjectCss.css'
+import drawerCss from '../../style/drawer'
+import { getFlows } from '../../store';
+import '../../style/singleProjectCss.css'
+
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
-function SingleProject({ location, flows, getFlows }) {
+function ProjectFlows({ location, flows, getFlows }) {
 
     const [state, setState] = useState({
         columns: [
@@ -36,7 +37,6 @@ function SingleProject({ location, flows, getFlows }) {
         };
     }, [])
 
-
     useEffect(() => {
         getFlows(projectName)
     }, [getFlows])
@@ -50,14 +50,14 @@ function SingleProject({ location, flows, getFlows }) {
         let data = []
         for (let i = 0; i < flows.length; i++) {
             let temp = <div className="bs-example">
-                <div className="accordion" id="accordionExample">
+                <div className="accordion" id={`accordionExample${i}`}>
                     <div className="card">
-                        <div className="card-header" id="headingOne">
+                        <div className="card-header" id={`heading${i}`}>
                             <h2 className="mb-0">
                                 <button type="button" className="btn btn-link" data-toggle="collapse" data-target={`#collapse${i}`}><i className="fa fa-angle-down"></i>{flows[i]["flow"]}</button> <h6 style={{ float: "right", marginTop: "2%" }}>Total Nodes : {flows[i]["nodes"].length}</h6>
                             </h2>
                         </div>
-                        <div id={`collapse${i}`} className="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div id={`collapse${i}`} className="collapse" aria-labelledby={`heading${i}`} data-parent={`#accordionExample${i}`}>
                             <div className="card-body">
                                 {flows[i]["info"] ? <p>Info : {flows[i]["info"]}</p> : ""}
                                 {
@@ -79,17 +79,17 @@ function SingleProject({ location, flows, getFlows }) {
 
     return (
         <div>
-
             <section id="cover" className="min-vh-100" style={{ marginTop: '5%' }} >
                 <Header />
                 <main
                     className={classNames(classes.content, {
                         [classes.contentShift]: drawer.open ? false : true,
                     })}>
+
                     <div className="container">
                         <div>
                             <h2 className="mb-0">{projectName}
-                                <button type="button" className="btn btn-light" style={{ float: "right" }}><Link to="/projects">Back</Link></button></h2>
+                                <button type="button" className="btn btn-light" style={{ float: "right", marginTop: "-0.3%" }}><Link to="/projects">Back</Link></button></h2>
 
                         </div>
                         <hr></hr>
@@ -97,6 +97,7 @@ function SingleProject({ location, flows, getFlows }) {
                             createBox(flows.flows)
                         }
                     </div>
+
                 </main>
             </section>
         </div >
@@ -115,4 +116,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SingleProject)
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectFlows)

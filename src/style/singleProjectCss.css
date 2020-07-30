@@ -1,6 +1,6 @@
-.bs-example {
+/* .bs-example {
     margin: 20px;
-}
+} */
 
 .accordion .fa {
     margin-right: 0.5rem;
@@ -14,3 +14,10 @@
     float: left;
 }
 
+.btn-link {
+    text-decoration: none !important
+}
+
+.btn-link {
+    text-decoration: none !important
+}

@@ -7,7 +7,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import classNames from "classnames";
 import SubscriptionCardDashboard from './Subscription/SubscriptionCardDashboard'
 import ErrorCount from './ErrorCount'
-import ProjectCount from './ProjectCount'
+import ProjectCount from './Project/ProjectCount'
 import BackupCard from './Backup/BackupCard'
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
