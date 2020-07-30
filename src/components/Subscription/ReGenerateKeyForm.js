@@ -1,6 +1,6 @@
 import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
-import TextError from '../TextError'
+import TextError from '../../utils/TextError'
 
 const getReGenerateKeyForm = (subscriptionKey, initialValue, validationSchema, onSubmit) => {
     const options = [

@@ -9,7 +9,7 @@ import '../../style/form1.css'
 import Header from '../Header'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
-import TextError from '../TextError'
+import TextError from '../../utils/TextError'
 
 function Login({ isAuth, isAuthCall }) {
     let history = useHistory()

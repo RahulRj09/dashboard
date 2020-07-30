@@ -8,7 +8,7 @@ import classNames from "classnames";
 import { getBackupData, getProjects } from '../../store'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
-import TextError from '../TextError'
+import TextError from '../../utils/TextError'
 import DateView from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { CopyToClipboard } from 'react-copy-to-clipboard';

@@ -10,7 +10,7 @@ import { resetPassword } from '../../store'
 import '../../style/form1.css'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
-import TextError from '../TextError'
+import TextError from '../../utils/TextError'
 import PasswordStrengthMeter from '../PasswordStrengthMeter'
 
 

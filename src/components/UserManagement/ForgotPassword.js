@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { forgotPassword } from '../../store'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
-import TextError from '../TextError'
+import TextError from '../../utils/TextError'
 
 function ForgotPassword({ forgotPasswordData, forgotPassword }) {
     let loginStatus = localStorage.getItem("isAuth")
