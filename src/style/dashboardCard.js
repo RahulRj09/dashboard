@@ -20,10 +20,10 @@ function dashboardCard(theme) {
         },
         expandOpen: {
             transform: 'rotate(180deg)',
-        },
-        avatar: {
-            backgroundColor: red[500],
-        },
+        }
+        // avatar: {
+        //     backgroundColor: red[500],
+        // },
     }
     return dashboardCard
 }

@@ -1,25 +1,15 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import Header from '../Header'
 import drawerCss from '../../style/drawer'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import classNames from "classnames";
-import { getBackupData, getProjects } from '../../store'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
-import * as Yup from 'yup'
-import TextError from '../../utils/TextError'
-import DateView from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
-import DownloadLink from "react-download-link";
-import GetAppIcon from '@material-ui/icons/GetApp';
-import '../../style/date.css'
+import BackupManually from './BackupManually'
+import ChangeBackupLocation from './ChangeBackupLocation';
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
 
-const Backup = ({ backupData, getBackupData, projects, getProjects }) => {
+const Backup = () => {
     const classes = useStyles();
     const theme = useTheme();
     const [time, setTime] = useState(Date.now());
@@ -32,44 +22,6 @@ const Backup = ({ backupData, getBackupData, projects, getProjects }) => {
             clearInterval(interval);
         };
     }, [])
-
-
-    useEffect(() => {
-        getProjects()
-    }, [getProjects])
-
-
-    const options = [
-        { key: '', value: '' },
-    ]
-
-    let projectData = projects.projects
-
-    projectData.map(project => {
-        options.push({ key: project, value: project })
-    })
-    console.log(options)
-
-    const initialValue = {
-        projectname: "",
-        backupdate: null
-    }
-
-    const validationSchema = Yup.object({
-        projectname: Yup.string().required("Required!"),
-        backupdate: Yup.date().required('Required!').nullable()
-
-    })
-
-    const onSubmit = values => {
-        getBackupData(values)
-    }
-    const [state, setState] = useState({ value: 'some\ntext', copied: false })
-    const onCopy = () => {
-        setState({ ...state, copied: true });
-    };
-
-    let tempData = JSON.stringify(backupData.backupData)
     if (loginStatus === "false") {
         return <Redirect to='/' />
     }
@@ -81,84 +33,15 @@ const Backup = ({ backupData, getBackupData, projects, getProjects }) => {
                     className={classNames(classes.content, {
                         [classes.contentShift]: drawer.open ? false : true,
                     })}>
-                    <div id="cover-caption">
-                        <div className="container-fluid">
-                            <div className="row text-white">
-                                <div className="col-xl-5 col-lg-8 col-md-8 col-sm-12 col-xs-12 col mx-auto form-4">
-                                    <div className="template" style={{ color: 'black' }}>
-                                        <div className="card">
-                                            <h4 className="card-header">Back-up</h4>
-                                            <div className="card-body">
-                                                <Formik initialValues={initialValue} validationSchema={validationSchema} onSubmit={onSubmit} >
-                                                    {
-                                                        formik => {
-                                                            return <Form>
-                                                                <div className="form-group">
-                                                                    <label htmlFor="projectname">Project Name</label>
-                                                                    <Field as='select' id="projectname" name="projectname" className="form-control"  >
-                                                                        {
-                                                                            options.map(option => {
-                                                                                return (
-                                                                                    <option key={option.key} value={option.value}>
-                                                                                        {option.key}
-                                                                                    </option>
-                                                                                )
-                                                                            })
-                                                                        }
-                                                                    </Field>
-                                                                    <ErrorMessage name="projectname" component={TextError} />
-                                                                </div>
-                                                                <div className="form-group">
-                                                                    <label htmlFor="backupdate">Back-up Date</label>
-                                                                    <Field name="backupdate" type="date">
-                                                                        {
-                                                                            ({ form, field }) => {
-                                                                                const { setFieldValue } = form
-                                                                                const { value } = field
-                                                                                return <DateView id="backupdate" className="form-control demo" {...field}
-                                                                                    selected={value} onChange={val => setFieldValue("backupdate", val)} />
-                                                                            }
-                                                                        }
-                                                                    </Field>
-                                                                    <ErrorMessage name="backupdate" component={TextError} />
-                                                                </div>
-                                                                <br />
-                                                                <div style={{ display: "flex", float: "right", "marginTop": "-8%" }}>
-                                                                    <button type="submit" className="btn btn-secondary" disabled={!formik.isValid} >Export</button>
-                                                                </div>
-                                                                <br />
-                                                                {
-                                                                    tempData.length && backupData.loading ? <div>
-                                                                        <div className="form-group">
-                                                                            <label htmlFor="backupdata">Back-up data</label>
-                                                                            <Field as="textarea" name="backupdata" className="form-control" value={tempData} />
-                                                                        </div>
-                                                                        <div style={{ display: "flex", float: "right", display: "inline" }}>
-                                                                            <DownloadLink
-                                                                                label={<GetAppIcon color="disabled" fontSize="small" />}
-                                                                                filename={`${formik.values.projectname}.json`}
-                                                                                exportFile={() => tempData}
-                                                                            />&nbsp;&nbsp;&nbsp;
-                                                                            <CopyToClipboard onCopy={onCopy} text={tempData}>
-                                                                                <FileCopyIcon fontSize="smallo" color="disabled" />
-                                                                            </CopyToClipboard>
-                                                                        </div>
-                                                                        {state.copied ? <span style={{ color: '#6c757d' }}>Copied.</span> : null}
-                                                                    </div> : ""
-                                                                }
-                                                            </Form>
-                                                        }
-                                                    }
-                                                </Formik>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-4" style={{ marginBottom: "3%" }} >
+                                <ChangeBackupLocation />
+                            </div>
+                            <div className="col-md-4" style={{ marginBottom: "3%" }} >
+                                <BackupManually />
                             </div>
                         </div>
-                    </div>
-                    <div>
                     </div>
                 </main>
             </section>
@@ -166,19 +49,5 @@ const Backup = ({ backupData, getBackupData, projects, getProjects }) => {
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        backupData: state.backupData,
-        projects: state.projects
-    }
-}
 
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        getBackupData: (backupParameters) => dispatch(getBackupData(backupParameters)),
-        getProjects: () => dispatch(getProjects())
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Backup)
+export default Backup
