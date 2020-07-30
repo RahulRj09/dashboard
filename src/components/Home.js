@@ -6,7 +6,7 @@ import drawerCss from '../style/drawer'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import classNames from "classnames";
 import SubscriptionCardDashboard from './Subscription/SubscriptionCardDashboard'
-import ErrorCount from './ErrorCount'
+import ErrorCount from './ErrorLog/ErrorCount'
 import ProjectCount from './Project/ProjectCount'
 import BackupCard from './Backup/BackupCard'
 

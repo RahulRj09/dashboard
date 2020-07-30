@@ -11,7 +11,7 @@ import UserManagement from './components/UserManagement';
 import Profile from './components/Profile';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
-import ErrorLog from './components/ErrorLog';
+import ErrorLog from './components/ErrorLog/ErrorLog';
 import Subscription from './components/Subscription/Subscription';
 import Backup from './components/Backup/Backup';
 

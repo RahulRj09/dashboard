@@ -7,8 +7,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import { getErrorCount } from '../store';
-import dashboardCard from '../style/dashboardCard'
+import { getErrorCount } from '../../store';
+import dashboardCard from '../../style/dashboardCard'
 
 const useStyles = makeStyles((theme) => dashboardCard(theme));
 

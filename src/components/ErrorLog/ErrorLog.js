@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
-import Header from './Header'
+import Header from '../Header'
 import { connect } from 'react-redux'
-import drawerCss from '../style/drawer'
+import drawerCss from '../../style/drawer'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import classNames from "classnames";
 
