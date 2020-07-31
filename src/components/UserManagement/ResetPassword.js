@@ -15,9 +15,6 @@ import PasswordStrengthMeter from './PasswordStrengthMeter'
 
 
 const useStyles = makeStyles((theme) => (drawerCss(theme)))
-
-let confirmPasswordMessage = ""
-
 function ResetPassword(props) {
     const classes = useStyles();
     const theme = useTheme();
@@ -42,17 +39,11 @@ function ResetPassword(props) {
             /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
             "Password must be min 8 characters, and have 1 Special Character, 1 Uppercase, 1 Number and 1 Lowercase"
         ),
-        confirmpassword: Yup.string().required("Required!")
+        confirmpassword: Yup.string().oneOf([Yup.ref('newpassword'), ""], "Passwords must match").required("Required!")
 
     })
     const onSubmit = async values => {
-        if (values.newpassword !== values.confirmpassword) {
-            confirmPasswordMessage = "The passwords doesn't match"
-        } else {
-            confirmPasswordMessage = ""
-            props.resetPassword(values)
-        }
-
+        props.resetPassword(values)
     }
     useEffect(() => {
         const interval = setInterval(() => setTime(Date.now()), 1000);
@@ -67,7 +58,6 @@ function ResetPassword(props) {
 
     return (
         <div>
-
             <section id="cover" className="min-vh-100" style={{ marginTop: '3%' }} >
                 <Header />
                 <main
@@ -103,7 +93,6 @@ function ResetPassword(props) {
                                                                     <ErrorMessage name="confirmpassword" component={TextError} />
                                                                 </div>
                                                                 {
-
                                                                     props.resetPasswordData.error ? <div className="alert alert-danger alert-dismissible fade show" role="alert">
                                                                         <span class="help-block">Invalid old password</span>
                                                                         <button type="button" className="close" data-dismiss="alert" aria-label="Close">
@@ -112,18 +101,6 @@ function ResetPassword(props) {
                                                                     </div> : ""
                                                                 }
                                                                 {
-
-
-                                                                    confirmPasswordMessage ? <div className="alert alert-danger alert-dismissible fade show" role="alert">
-                                                                        <span class="help-block">{confirmPasswordMessage}</span>
-                                                                        <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div> : ""
-
-                                                                }
-                                                                {
-
                                                                     props.resetPasswordData.succeeded ? <div className="alert alert-success alert-dismissible fade show" role="alert">
                                                                         <span class="help-block">Password reset successfully</span>
                                                                         <button type="button" className="close" data-dismiss="alert" aria-label="Close">
@@ -141,17 +118,14 @@ function ResetPassword(props) {
                                                 </Formik>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div>
-                    </div>
                 </main>
-            </section >
-        </div >
+            </section>
+        </div>
     )
 }
 
