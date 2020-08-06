@@ -53,12 +53,12 @@ function Login({ isAuth, isAuthCall }) {
                                                         formik => {
                                                             return <Form>
                                                                 <div className="form-group">
-                                                                    <label htmlFor="username">username</label>
+                                                                    <label htmlFor="username">Username</label>
                                                                     <Field type="text" name="username" className="form-control" />
                                                                     <ErrorMessage name="username" component={TextError} />
                                                                 </div>
                                                                 <div className="form-group">
-                                                                    <label htmlFor="password">password</label>
+                                                                    <label htmlFor="password">Password</label>
                                                                     <Field type="password" name="password" className="form-control" />
                                                                     <ErrorMessage name="password" component={TextError} />
                                                                 </div>
